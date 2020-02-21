@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import loadFirebase from "../lib/db";
 import Nav from "../components/nav";
 import Head from "next/head";
+import image from "../images/movieHouse.png";
 
 class Home extends Component {
   static async getInitialProps() {
@@ -32,68 +33,36 @@ class Home extends Component {
           <title>Test</title>
           <link
             rel="stylesheet"
-            href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           />
         </Head>
         <Nav />
-        <ul className="products clearfix">
+        <div className="row row-cols-1 row-cols-md-3 container mx-auto">
           {goods.map(good => (
-            <li className="product-wrapper">
-              <a href="" className="product">
-                {good.name}
-                {good.description}
-                {good.price}
-                <div class="product-photo">
-                  <img src="" alt="" />
+            <div class="col mb-4">
+              <div class="card">
+                <img
+                  src={image}
+                  className="card-img-top"
+                  width="150"
+                  height="255"
+                  alt="lorem"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">{good.name}</h5>
+                  <p class="card-text">{good.description}</p>
+                  <a href="#" class="btn btn-primary">
+                    {good.price}
+                  </a>
                 </div>
-              </a>
-            </li>
+              </div>
+            </div>
           ))}
-        </ul>
+        </div>
 
         <style jsx>{`
-          .product-wrapper {
-            display: block;
-            width: 100%;
-            float: left;
-            transition: width 0.2s;
-          }
-
-          @media only screen and (min-width: 450px) {
-            .product-wrapper {
-              width: 50%;
-            }
-          }
-
-          @media only screen and (min-width: 768px) {
-            .product-wrapper {
-              width: 33.333%;
-            }
-          }
-
-          @media only screen and (min-width: 1000px) {
-            .product-wrapper {
-              width: 25%;
-            }
-          }
-
-          .product {
-            display: block;
-            border: 1px solid #b5e9a7;
-            border-radius: 3px;
-            position: relative;
-            background: #fff;
-            margin: 0 20px 20px 0;
-            text-decoration: none;
-            color: #474747;
-            z-index: 0;
-            height: 300px;
-          }
-
-          .products {
-            list-style: none;
-            margin: 0 -20px 0 0;
-            padding: 0;
+          .row-cols-md-3 {
+            margin: 3vh 1.5vw 1.5vh 1.5vw;
           }
         `}</style>
       </div>

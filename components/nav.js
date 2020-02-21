@@ -2,31 +2,32 @@ import React from "react";
 import { Head } from "next/head";
 
 const Nav = () => (
-  <div>
-    <nav className="navbar navbar-default">
-      <div className="container-fluid">
-        <div className="navbar-header">
-          <a className="navbar-brand" href="#">
-            Name
-          </a>
-        </div>
-        <ul className="nav navbar-nav">
-          <li className="active">
-            <a href="#">Home</a>
-          </li>
-          <li>
-            <a href="#">Page 1</a>
-          </li>
-          <li>
-            <a href="#">Page 2</a>
-          </li>
-          <li>
-            <a href="#">Page 3</a>
-          </li>
-        </ul>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+      Navbar
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link active" href="#">
+          Home <span class="sr-only">(current)</span>
+        </a>
+        <a class="nav-item nav-link" href="#">
+          Cart
+        </a>
       </div>
-    </nav>
-  </div>
+    </div>
+  </nav>
 );
 
 export default Nav;
