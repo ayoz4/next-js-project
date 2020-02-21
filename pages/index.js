@@ -1,88 +1,104 @@
-import React from 'react'
-import Head from 'next/head'
-import Nav from '../components/nav'
+import React, { Component } from "react";
 
-const Home = () => (
-  <div>
-    <Head>
-      <title>Home</title>
-      <link rel="icon" href="/favicon.ico" />
-    </Head>
+import loadFirebase from "../lib/db";
+import Nav from "../components/nav";
+import Head from "next/head";
 
-    <Nav />
+class Home extends Component {
+  static async getInitialProps() {
+    let firebase = await loadFirebase();
 
-    <div className="hero">
-      <h1 className="title">Welcome to Next.js!</h1>
-      <p className="description">
-        To get started, edit <code>pages/index.js</code> and save to reload.
-      </p>
+    let data = [];
 
-      <div className="row">
-        <a href="https://nextjs.org/docs" className="card">
-          <h3>Documentation &rarr;</h3>
-          <p>Learn more about Next.js in the documentation.</p>
-        </a>
-        <a href="https://nextjs.org/learn" className="card">
-          <h3>Next.js Learn &rarr;</h3>
-          <p>Learn about Next.js by following an interactive tutorial!</p>
-        </a>
-        <a
-          href="https://github.com/zeit/next.js/tree/master/examples"
-          className="card"
-        >
-          <h3>Examples &rarr;</h3>
-          <p>Find other example boilerplates on the Next.js GitHub.</p>
-        </a>
+    await firebase
+      .firestore()
+      .collection("goods")
+      .get()
+      .then(snapshot => {
+        snapshot.forEach(doc => {
+          data.push(Object.assign({ id: doc.id }, doc.data()));
+        });
+      });
+
+    return { goods: data };
+  }
+
+  render() {
+    const goods = this.props.goods;
+
+    return (
+      <div>
+        <Head>
+          <title>Test</title>
+          <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+          />
+        </Head>
+        <Nav />
+        <ul className="products clearfix">
+          {goods.map(good => (
+            <li className="product-wrapper">
+              <a href="" className="product">
+                {good.name}
+                {good.description}
+                {good.price}
+                <div class="product-photo">
+                  <img src="" alt="" />
+                </div>
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <style jsx>{`
+          .product-wrapper {
+            display: block;
+            width: 100%;
+            float: left;
+            transition: width 0.2s;
+          }
+
+          @media only screen and (min-width: 450px) {
+            .product-wrapper {
+              width: 50%;
+            }
+          }
+
+          @media only screen and (min-width: 768px) {
+            .product-wrapper {
+              width: 33.333%;
+            }
+          }
+
+          @media only screen and (min-width: 1000px) {
+            .product-wrapper {
+              width: 25%;
+            }
+          }
+
+          .product {
+            display: block;
+            border: 1px solid #b5e9a7;
+            border-radius: 3px;
+            position: relative;
+            background: #fff;
+            margin: 0 20px 20px 0;
+            text-decoration: none;
+            color: #474747;
+            z-index: 0;
+            height: 300px;
+          }
+
+          .products {
+            list-style: none;
+            margin: 0 -20px 0 0;
+            padding: 0;
+          }
+        `}</style>
       </div>
-    </div>
+    );
+  }
+}
 
-    <style jsx>{`
-      .hero {
-        width: 100%;
-        color: #333;
-      }
-      .title {
-        margin: 0;
-        width: 100%;
-        padding-top: 80px;
-        line-height: 1.15;
-        font-size: 48px;
-      }
-      .title,
-      .description {
-        text-align: center;
-      }
-      .row {
-        max-width: 880px;
-        margin: 80px auto 40px;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-      }
-      .card {
-        padding: 18px 18px 24px;
-        width: 220px;
-        text-align: left;
-        text-decoration: none;
-        color: #434343;
-        border: 1px solid #9b9b9b;
-      }
-      .card:hover {
-        border-color: #067df7;
-      }
-      .card h3 {
-        margin: 0;
-        color: #067df7;
-        font-size: 18px;
-      }
-      .card p {
-        margin: 0;
-        padding: 12px 0 0;
-        font-size: 13px;
-        color: #333;
-      }
-    `}</style>
-  </div>
-)
-
-export default Home
+export default Home;
