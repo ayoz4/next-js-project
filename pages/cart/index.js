@@ -4,26 +4,26 @@ import loadFirebase from "../../lib/db";
 import Head from "next/head";
 import Nav from "../../components/nav";
 
-const Cart = () => {
+const Cart = props => {
   return (
     <div>
       <Head>
         <link
           rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         />
       </Head>
-      <Nav />
+      <Nav path={props.url.pathname} />
     </div>
   );
 };
 
-Cart.getInitialProps = async () => {
+/* Cart.getInitialProps = async () => {
   let firebase = loadFirebase();
 
   firebase.firestore();
 
-  return {};
-};
+  return {asd};
+}; */
 
 export default Cart;

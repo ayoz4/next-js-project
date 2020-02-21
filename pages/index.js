@@ -36,7 +36,7 @@ class Home extends Component {
             href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           />
         </Head>
-        <Nav />
+        <Nav path={this.props.url.pathname} />
         <div className="row row-cols-1 row-cols-md-3 container mx-auto">
           {goods.map(good => (
             <div class="col mb-4">
