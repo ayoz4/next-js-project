@@ -1,9 +1,11 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 import loadFirebase from "../lib/db";
 import Nav from "../components/nav";
 import Head from "next/head";
-import image from "../images/movieHouse.png";
+import Good from "../components/Good";
+import { addToCart } from "../redux/actions/cartActions";
 
 class Home extends Component {
   static async getInitialProps() {
@@ -24,6 +26,11 @@ class Home extends Component {
     return { goods: data };
   }
 
+  onAddToCart = (e, good) => {
+    e.preventDefault();
+    this.props.addToCart(good);
+  };
+
   render() {
     const goods = this.props.goods;
 
@@ -36,27 +43,10 @@ class Home extends Component {
             href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           />
         </Head>
-        <Nav path={this.props.url.pathname} />
+        <Nav path={"/"} />
         <div className="row row-cols-1 row-cols-md-3 container mx-auto">
           {goods.map(good => (
-            <div class="col mb-4">
-              <div class="card">
-                <img
-                  src={image}
-                  className="card-img-top"
-                  width="150"
-                  height="255"
-                  alt="lorem"
-                />
-                <div class="card-body">
-                  <h5 class="card-title">{good.name}</h5>
-                  <p class="card-text">{good.description}</p>
-                  <a href="#" class="btn btn-primary">
-                    {good.price}
-                  </a>
-                </div>
-              </div>
-            </div>
+            <Good good={good} onClick={this.onAddToCart} />
           ))}
         </div>
 
@@ -70,4 +60,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default connect(null, { addToCart })(Home);
