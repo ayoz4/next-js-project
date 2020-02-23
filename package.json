@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@primer/octicons-react": "^9.4.0",
     "@zeit/next-css": "^1.0.1",
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
