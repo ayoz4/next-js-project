@@ -44,6 +44,7 @@ class Home extends Component {
           />
         </Head>
         <Nav path={"/"} />
+
         <div className="row row-cols-1 row-cols-md-3 container mx-auto">
           {goods.map(good => (
             <Good good={good} onClick={this.onAddToCart} />

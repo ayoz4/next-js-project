@@ -6,15 +6,30 @@ import storage from "redux-persist/lib/storage";
 
 import rootReducer from "./reducers";
 
-/* const persistConfig = {
-  key: "root",
-  storage: storage
-}; */
+const makeConfiguredStore = (reducer, initialState) =>
+  createStore(
+    reducer,
+    initialState,
+    composeWithDevTools(applyMiddleware(thunk))
+  );
 
-// const persReducer = persistReducer(persistConfig, rootReducer);
+export const makeStore = (initialState, { isServer, req, debug, storeKey }) => {
+  if (isServer) {
+    initialState = initialState || { fromServer: "foo" };
 
-export const initStore = (initialStore = {}) => {
-  return createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
+    return makeConfiguredStore(rootReducer, initialState);
+  } else {
+    const persistConfig = {
+      key: "nextjs",
+      whitelist: ["fromClient"],
+      storage
+    };
+
+    const persistedReducer = persistReducer(persistConfig, rootReducer);
+    const store = makeConfiguredStore(persistedReducer, initialState);
+
+    store.__persistor = persistStore(store);
+
+    return store;
+  }
 };
-
-// export let persistor = persistStore(initStore());

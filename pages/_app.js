@@ -3,7 +3,7 @@ import App, { Container } from "next/app";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import withRedux from "next-redux-wrapper";
-import { initStore, persistor } from "../redux";
+import { makeStore } from "../redux";
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -16,13 +16,13 @@ class MyApp extends App {
   render() {
     const { Component, pageProps, store } = this.props;
     return (
-      <Container>
-        <Provider store={store}>
-            <Component {...pageProps} />
-        </Provider>
-      </Container>
+      <Provider store={store}>
+        <PersistGate persistor={store.__persistor} loading={null}>
+          <Component {...pageProps} />
+        </PersistGate>
+      </Provider>
     );
   }
 }
 
-export default withRedux(initStore)(MyApp);
+export default withRedux(makeStore)(MyApp);
