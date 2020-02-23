@@ -8,6 +8,7 @@ import {
   deleteFromCart,
   incrementCount
 } from "../../redux/actions/cartActions";
+import CartWrapper from "./css";
 
 const Cart = props => {
   const onDelete = (e, id) => {
@@ -35,7 +36,7 @@ const Cart = props => {
       </Head>
       <Nav path={"/cart"} />
 
-      <table class="table">
+      <CartWrapper className="table container mx-auto">
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -53,9 +54,11 @@ const Cart = props => {
               <th>{good.description}</th>
               <th>
                 <input
+                  className="quantity"
                   type="number"
                   min="1"
                   max="10"
+                  size="1"
                   value={good.quantity}
                   onChange={e =>
                     props.incrementCount({ e: e.target.value, id: good.id })
@@ -63,17 +66,20 @@ const Cart = props => {
                 />
               </th>
               <th>
-                {good.price}
-                <button className="btn" onClick={e => onDelete(e, good.id)}>
-                  <Octicon icon={X} />
-                </button>
+                <div className="left">{good.price}</div>
+                <div className="right">
+                  <button className="btn" onClick={e => onDelete(e, good.id)}>
+                    <Octicon icon={X} />
+                  </button>
+                </div>
               </th>
             </tr>
           ))}
         </tbody>
-      </table>
-
-      <p>{calculateCart()}</p>
+        <th colSpan="5" className="total">
+          <p>Total: {calculateCart()}</p>
+        </th>
+      </CartWrapper>
     </div>
   );
 };
