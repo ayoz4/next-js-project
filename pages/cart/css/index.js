@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const CartWrapper = styled.table`
+export const CartWrapper = styled.table`
   margin: 3vh 1.5vw 1.5vh 1.5vw;
 
   .total {
@@ -45,4 +45,7 @@ const CartWrapper = styled.table`
   }
 `;
 
-export default CartWrapper;
+export const EmptyCart = styled.div`
+  text-align: center;
+  font-size: xxx-large;
+`;

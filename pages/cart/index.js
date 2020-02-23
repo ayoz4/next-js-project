@@ -8,7 +8,7 @@ import {
   deleteFromCart,
   incrementCount
 } from "../../redux/actions/cartActions";
-import CartWrapper from "./css";
+import { CartWrapper, EmptyCart } from "./css";
 
 const Cart = props => {
   const onDelete = (e, id) => {
@@ -36,50 +36,54 @@ const Cart = props => {
       </Head>
       <Nav path={"/cart"} />
 
-      <CartWrapper className="table container mx-auto">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Description</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          {props.cart.map((good, index) => (
+      {props.cart.length ? (
+        <CartWrapper className="table container mx-auto">
+          <thead>
             <tr>
-              <th scope="row">{index + 1}</th>
-              <th>{good.name}</th>
-              <th>{good.description}</th>
-              <th>
-                <input
-                  className="quantity"
-                  type="number"
-                  min="1"
-                  max="10"
-                  size="1"
-                  value={good.quantity}
-                  onChange={e =>
-                    props.incrementCount({ e: e.target.value, id: good.id })
-                  }
-                />
-              </th>
-              <th>
-                <div className="left">{good.price}</div>
-                <div className="right">
-                  <button className="btn" onClick={e => onDelete(e, good.id)}>
-                    <Octicon icon={X} />
-                  </button>
-                </div>
-              </th>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Description</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Price</th>
             </tr>
-          ))}
-        </tbody>
-        <th colSpan="5" className="total">
-          <p>Total: {calculateCart()}</p>
-        </th>
-      </CartWrapper>
+          </thead>
+          <tbody>
+            {props.cart.map((good, index) => (
+              <tr>
+                <th scope="row">{index + 1}</th>
+                <th>{good.name}</th>
+                <th>{good.description}</th>
+                <th>
+                  <input
+                    className="quantity"
+                    type="number"
+                    min="1"
+                    max="10"
+                    size="1"
+                    value={good.quantity}
+                    onChange={e =>
+                      props.incrementCount({ e: e.target.value, id: good.id })
+                    }
+                  />
+                </th>
+                <th>
+                  <div className="left">{good.price}</div>
+                  <div className="right">
+                    <button className="btn" onClick={e => onDelete(e, good.id)}>
+                      <Octicon icon={X} />
+                    </button>
+                  </div>
+                </th>
+              </tr>
+            ))}
+          </tbody>
+          <th colSpan="5" className="total">
+            <p>Total: {calculateCart()}</p>
+          </th>
+        </CartWrapper>
+      ) : (
+        <EmptyCart className="cartMsg">Your cart is empty</EmptyCart>
+      )}
     </div>
   );
 };
