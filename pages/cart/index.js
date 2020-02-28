@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import Head from "next/head";
 import Octicon, { X } from "@primer/octicons-react";
+import Link from "next/link";
 
 import Nav from "../../components/nav";
 import {
@@ -82,7 +83,12 @@ const Cart = props => {
           </th>
         </CartWrapper>
       ) : (
-        <EmptyCart className="cartMsg">Your cart is empty</EmptyCart>
+        <EmptyCart className="cartMsg">
+          <p>Your cart is empty</p>
+          <Link href="/">
+            <button className="btn btn-dark">Go shopping</button>
+          </Link>
+        </EmptyCart>
       )}
     </div>
   );

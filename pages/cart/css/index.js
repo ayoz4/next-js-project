@@ -47,5 +47,11 @@ export const CartWrapper = styled.table`
 
 export const EmptyCart = styled.div`
   text-align: center;
-  font-size: xxx-large;
+  font-size: 50px;
+  height: 100vh;
+  padding-top: 30vh;
+
+  .btn {
+    font-size: 30px;
+  }
 `;
