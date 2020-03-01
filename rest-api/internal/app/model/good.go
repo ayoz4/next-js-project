@@ -6,10 +6,10 @@ import (
 
 // Good ...
 type Good struct {
-	ID          string
-	Name        string
-	Description string
-	Price       int
+	ID          string `json:"id,omitempty"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	Price       int    `json:"price"`
 }
 
 // Validate ...
