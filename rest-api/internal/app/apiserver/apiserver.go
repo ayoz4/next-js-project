@@ -1,74 +1,41 @@
 package apiserver
 
 import (
-	"io"
+	"context"
 	"net/http"
 
-	"github.com/ayoz4/next-js-project/internal/app/store"
+	"cloud.google.com/go/firestore"
+	firebase "firebase.google.com/go"
+	"google.golang.org/api/option"
 
-	"github.com/gorilla/mux"
-	"github.com/sirupsen/logrus"
+	"github.com/ayoz4/next-js-project/internal/app/store/sqlstore"
 )
 
-type APIServer struct {
-	config *Config
-	logger *logrus.Logger
-	router *mux.Router
-	store  *store.Store
-}
-
-func New(config *Config) *APIServer {
-	return &APIServer{
-		config: config,
-		logger: logrus.New(),
-		router: mux.NewRouter(),
-	}
-}
-
-func (s *APIServer) Start() error {
-	if err := s.configureLogger(); err != nil {
-		return err
-	}
-
-	s.configureRouter()
-
-	if err := s.configureStore(); err != nil {
-		return err
-	}
-
-	s.logger.Info("starting api server")
-
-	return http.ListenAndServe(s.config.BindAddr, s.router)
-}
-
-func (s *APIServer) configureLogger() error {
-	level, err := logrus.ParseLevel(s.config.LogLevel)
+func Start(config *Config) error {
+	client, err := newDB()
 	if err != nil {
 		return err
 	}
+	defer client.Close()
 
-	s.logger.SetLevel(level)
+	store := sqlstore.New(client)
+	srv := newServer(store)
 
-	return nil
+	return http.ListenAndServe(config.BindAddr, srv)
 }
 
-func (s *APIServer) configureRouter() {
-	s.router.HandleFunc("/hello", s.handleHello())
-}
-
-func (s *APIServer) configureStore() error {
-	st := store.New()
-	if err := st.Open(); err != nil {
-		return nil
+func newDB() (*firestore.Client, error) {
+	ctx := context.Background()
+	sa := option.WithCredentialsFile("/Users/roman/Documents/server/next-js-project/rest-api/internal/app/store/ikit-is-firebase-adminsdk-rexhu-6803f65b58.json")
+	app, err := firebase.NewApp(ctx, nil, sa)
+	if err != nil {
+		return nil, err
 	}
 
-	s.store = st
-
-	return nil
-}
-
-func (s *APIServer) handleHello() http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		io.WriteString(w, "Hello")
+	client, err := app.Firestore(ctx)
+	if err != nil {
+		return nil, err
 	}
+
+	return client, nil
 }

@@ -7,6 +7,7 @@ require (
 	cloud.google.com/go/storage v1.6.0 // indirect
 	firebase.google.com/go v3.12.0+incompatible
 	github.com/BurntSushi/toml v0.3.1
+	github.com/bmizerany/assert v0.0.0-20160611221934-b7ed37b82869
 	github.com/go-ozzo/ozzo-validation/v4 v4.1.0
 	github.com/gobwas/glob v0.2.3 // indirect
 	github.com/gogo/protobuf v1.3.1 // indirect
@@ -20,4 +21,5 @@ require (
 	github.com/spf13/afero v1.2.2 // indirect
 	github.com/stretchr/testify v1.5.1
 	google.golang.org/api v0.19.0
+	google.golang.org/grpc v1.27.1
 )
