@@ -10,6 +10,7 @@ import (
 
 	"cloud.google.com/go/firestore"
 	firebase "firebase.google.com/go"
+	"github.com/gorilla/mux"
 	"google.golang.org/api/iterator"
 	"google.golang.org/api/option"
 )
@@ -44,12 +45,33 @@ func AllGoods(w http.ResponseWriter, r *http.Request) {
 			break
 		}
 
-		good := extractGoodData(doc.Data())
+		good := extractGoodData(doc.Data(), doc.Ref.ID)
 
 		goods = append(goods, good)
 	}
 
 	json.NewEncoder(w).Encode(goods)
+}
+
+func GetGood(w http.ResponseWriter, r *http.Request) {
+	client, ctx := InitialMigrating()
+	defer client.Close()
+
+	vars := mux.Vars(r)
+	id := vars["id"]
+
+	result, err := client.Collection("goods").Doc(id).Get(ctx)
+	if err != nil {
+		log.Fatal("Error: %s", err)
+	}
+
+	g := extractGoodData(result.Data(), result.Ref.ID)
+
+	idRef := result.Ref.ID
+
+	fmt.Println(idRef)
+
+	json.NewEncoder(w).Encode(g)
 }
 
 type AddGood struct {
@@ -69,7 +91,7 @@ func NewGood(w http.ResponseWriter, r *http.Request) {
 
 	err := json.Unmarshal(b, &g)
 	if err != nil {
-		log.Fatal("Error: ", err)
+		log.Fatal("Error: %s", err)
 	}
 
 	query := client.Collection("goods").Where("name", "==", g.Name).Documents(ctx)
@@ -103,16 +125,71 @@ func NewGood(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+type deleteGood struct {
+	ID string `json:"id"`
+}
+
 func DeleteGood(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "DeleteGood endpoint hit")
+	client, ctx := InitialMigrating()
+	defer client.Close()
+
+	delGood := deleteGood{}
+
+	b, _ := ioutil.ReadAll(r.Body)
+
+	err := json.Unmarshal(b, &delGood)
+	if err != nil {
+		fmt.Println("Error.")
+	}
+
+	fmt.Println(delGood.ID)
+
+	_, err = client.Collection("goods").Doc(delGood.ID).Delete(ctx)
+	if err != nil {
+		log.Printf("Error: %s", err)
+		w.WriteHeader(http.StatusBadGateway)
+		json.NewEncoder(w).Encode("An error has occured.")
+	}
+
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode("Success.")
+}
+
+type updateGood struct {
+	ID          string `json:"id"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	Price       int    `json:"price"`
 }
 
 func UpdateGood(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "UpdateGood endpoint hit")
+	client, ctx := InitialMigrating()
+	defer client.Close()
+
+	ug := updateGood{}
+
+	b, _ := ioutil.ReadAll(r.Body)
+
+	err := json.Unmarshal(b, &ug)
+	if err != nil {
+		log.Printf("Error: %s", err)
+	}
+
+	fmt.Println(ug.ID)
+
+	_, err = client.Collection("goods").Doc(ug.ID).Set(ctx, map[string]interface{}{
+		"name":        ug.Name,
+		"description": ug.Description,
+		"price":       ug.Price,
+	}, firestore.MergeAll)
+	if err != nil {
+		log.Printf("Error: %s", err)
+	}
 }
 
-func extractGoodData(g map[string]interface{}) (good Good) {
+func extractGoodData(g map[string]interface{}, id string) (good Good) {
 	good = Good{
+		ID:          id,
 		Name:        g["name"].(string),
 		Description: g["description"].(string),
 		Price:       g["price"].(int64),
@@ -122,6 +199,7 @@ func extractGoodData(g map[string]interface{}) (good Good) {
 }
 
 type Good struct {
+	ID          string
 	Name        string `firestore:"name,omitempty"`
 	Description string `firestore:"description,omitempty"`
 	Price       int64  `firestore:"price,omitempty"`
