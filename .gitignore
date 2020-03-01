@@ -17,6 +17,7 @@
 
 # db connection
 /lib
+/.json
 
 # misc
 .DS_Store

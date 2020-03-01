@@ -10,7 +10,7 @@ let initialState = [
   }
 ];
 
-const cart = (state = initialState, action) => {
+const cart = (state = [], action) => {
   switch (action.type) {
     case ADD_TO_CART:
       const good = state.findIndex(good => good.name === action.data.name);
