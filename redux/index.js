@@ -21,7 +21,7 @@ export const makeStore = (initialState, { isServer, req, debug, storeKey }) => {
   } else {
     const persistConfig = {
       key: "nextjs",
-      whitelist: ["fromClient"],
+      whitelist: ["cart"],
       storage
     };
 
