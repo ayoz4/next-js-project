@@ -1,4 +1,4 @@
-module github.com/ayoz4/next-js-project
+module github.com/ayoz4/next-js-project/rest-api
 
 go 1.13
 

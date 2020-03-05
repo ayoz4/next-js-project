@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/ayoz4/next-js-project/internal/app/model"
+	"github.com/ayoz4/next-js-project/rest-api/internal/app/model"
 
-	"github.com/ayoz4/next-js-project/internal/app/store"
+	"github.com/ayoz4/next-js-project/rest-api/internal/app/store"
 	"github.com/gorilla/mux"
 	"github.com/sirupsen/logrus"
 )

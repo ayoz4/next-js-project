@@ -7,9 +7,9 @@ import (
 
 	"google.golang.org/api/iterator"
 
-	"github.com/ayoz4/next-js-project/internal/app/store"
+	"github.com/ayoz4/next-js-project/rest-api/internal/app/store"
 
-	"github.com/ayoz4/next-js-project/internal/app/model"
+	"github.com/ayoz4/next-js-project/rest-api/internal/app/model"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -80,6 +80,10 @@ func (r *GoodRepository) DeleteGood(id string) error {
 func (r *GoodRepository) UpdateGood(g *model.Good) error {
 	doc, err := r.store.client.Collection("goods").Doc(g.ID).Get(context.Background())
 	if err != nil {
+		if status.Code(err) == codes.NotFound {
+			return store.ErrDocNotFound
+		}
+
 		return err
 	}
 

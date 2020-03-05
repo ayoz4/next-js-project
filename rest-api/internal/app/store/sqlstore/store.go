@@ -2,7 +2,7 @@ package sqlstore
 
 import (
 	"cloud.google.com/go/firestore"
-	"github.com/ayoz4/next-js-project/internal/app/store"
+	"github.com/ayoz4/next-js-project/rest-api/internal/app/store"
 )
 
 type Store struct {

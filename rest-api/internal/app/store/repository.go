@@ -1,7 +1,7 @@
 package store
 
 import (
-	"github.com/ayoz4/next-js-project/internal/app/model"
+	"github.com/ayoz4/next-js-project/rest-api/internal/app/model"
 )
 
 // UserRepository ...

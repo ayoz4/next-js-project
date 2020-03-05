@@ -8,7 +8,7 @@ import (
 	firebase "firebase.google.com/go"
 	"google.golang.org/api/option"
 
-	"github.com/ayoz4/next-js-project/internal/app/store/sqlstore"
+	"github.com/ayoz4/next-js-project/rest-api/internal/app/store/sqlstore"
 )
 
 func Start(config *Config) error {
@@ -26,7 +26,7 @@ func Start(config *Config) error {
 
 func newDB() (*firestore.Client, error) {
 	ctx := context.Background()
-	sa := option.WithCredentialsFile("/Users/roman/Documents/server/next-js-project/rest-api/internal/app/store/dbConnect.json`")
+	sa := option.WithCredentialsFile("/Users/roman/Documents/server/next-js-project/rest-api/internal/app/store/dbConnect.json")
 	app, err := firebase.NewApp(ctx, nil, sa)
 	if err != nil {
 		return nil, err

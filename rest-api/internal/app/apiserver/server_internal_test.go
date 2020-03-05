@@ -5,7 +5,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/ayoz4/next-js-project/internal/app/store/teststore"
+	"github.com/ayoz4/next-js-project/rest-api/internal/app/store/teststore"
 	"github.com/bmizerany/assert"
 )
 

@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { ADD_TO_CART, DELETE_FROM_CART, QUANTITY_CHANGED } from \"../constants\";\nexport const addToCart = data => ({\n  type: ADD_TO_CART,\n  data\n});\nexport const deleteFromCart = id => ({\n  type: DELETE_FROM_CART,\n  id\n});\nexport const incrementCount = data => ({\n  type: QUANTITY_CHANGED,\n  data\n});","map":null,"metadata":{},"sourceType":"module"}

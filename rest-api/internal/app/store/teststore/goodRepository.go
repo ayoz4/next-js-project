@@ -3,9 +3,9 @@ package teststore
 import (
 	"strconv"
 
-	"github.com/ayoz4/next-js-project/internal/app/store"
+	"github.com/ayoz4/next-js-project/rest-api/internal/app/store"
 
-	"github.com/ayoz4/next-js-project/internal/app/model"
+	"github.com/ayoz4/next-js-project/rest-api/internal/app/model"
 )
 
 type GoodRepository struct {

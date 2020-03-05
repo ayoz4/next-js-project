@@ -5,7 +5,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/ayoz4/next-js-project/internal/app/model"
+	"github.com/ayoz4/next-js-project/rest-api/internal/app/model"
 )
 
 func TestGood_Validate(t *testing.T) {

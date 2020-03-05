@@ -6,7 +6,7 @@ import (
 
 	"github.com/BurntSushi/toml"
 
-	"github.com/ayoz4/next-js-project/internal/app/apiserver"
+	"github.com/ayoz4/next-js-project/rest-api/internal/app/apiserver"
 )
 
 var (
@@ -14,7 +14,7 @@ var (
 )
 
 func init() {
-	flag.StringVar(&configPath, "config-path", "configs/apiserver.toml", "path to config file")
+	flag.StringVar(&configPath, "config-path", "/Users/roman/Documents/server/next-js-project/rest-api/configs/apiserver.toml", "path to config file")
 }
 
 func main() {
