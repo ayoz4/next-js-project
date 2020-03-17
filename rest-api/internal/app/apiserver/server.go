@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"github.com/gorilla/sessions"
+
 	"github.com/ayoz4/next-js-project/internal/app/model"
 
 	"github.com/ayoz4/next-js-project/internal/app/store"
@@ -11,17 +13,24 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+const (
+	jwtKey      = "secretkey"
+	sessionName = "ikit"
+)
+
 type server struct {
-	router *mux.Router
-	logger *logrus.Logger
-	store  store.Store
+	router       *mux.Router
+	logger       *logrus.Logger
+	store        store.Store
+	sessionStore sessions.Store
 }
 
-func newServer(store store.Store) *server {
+func newServer(store store.Store, sessionStore sessions.Store) *server {
 	s := &server{
-		router: mux.NewRouter(),
-		logger: logrus.New(),
-		store:  store,
+		router:       mux.NewRouter(),
+		logger:       logrus.New(),
+		store:        store,
+		sessionStore: sessionStore,
 	}
 
 	s.configureRouter()
@@ -39,6 +48,55 @@ func (s *server) configureRouter() {
 	s.router.HandleFunc("/goods", s.handleGetGoods()).Methods("GET")
 	s.router.HandleFunc("/goods/{id}", s.handleDeleteGood()).Methods("DELETE")
 	s.router.HandleFunc("/goods", s.handleUpdateGood()).Methods("PUT")
+	s.router.HandleFunc("/sessions", s.handleSessionsCreate()).Methods("POST")
+}
+
+func (s *server) handleSessionsCreate() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
+		w.Header().Set("Access-Control-Allow-Credentials", "true")
+		w.Header().Set("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Set-Cookie")
+
+		session, err := s.sessionStore.Get(r, sessionName)
+		if err != nil {
+			s.error(w, r, http.StatusInternalServerError, err)
+			return
+		}
+
+		session.Values["id"] = "lol"
+		/* if err := s.sessionStore.Save(r, w, session); err != nil {
+			s.error(w, r, http.StatusInternalServerError, err)
+			return
+		} */
+		s.sessionStore.Save(r, w, session)
+
+		str := session.Values["id"]
+
+		s.respond(w, r, http.StatusOK, str)
+
+		/* token := jwt.NewWithClaims(jwt.SigningMethodES256, jwt.MapClaims{
+			"foo": "test",
+		})
+
+		fmt.Println(token)
+
+		tokenString, err := token.SignedString([]byte("secretword"))
+		if err != nil {
+			return
+		}
+
+		fmt.Println(tokenString)
+
+		cookie := &http.Cookie{
+			Name:  "usertoken",
+			Value: tokenString,
+		}
+
+		http.SetCookie(w, cookie)
+
+		s.respond(w, r, http.StatusOK, nil) */
+	}
 }
 
 func (s *server) handleGoodsCreate() http.HandlerFunc {
@@ -92,6 +150,8 @@ func (s *server) handleGetGoods() http.HandlerFunc {
 			return
 		}
 
+		w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
+		w.Header().Set("Content-Type", "application/json")
 		s.respond(w, r, http.StatusOK, goods)
 	}
 }

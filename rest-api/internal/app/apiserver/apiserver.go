@@ -2,6 +2,7 @@ package apiserver
 
 import (
 	"context"
+	"github.com/gorilla/sessions"
 	"net/http"
 
 	"cloud.google.com/go/firestore"
@@ -19,14 +20,15 @@ func Start(config *Config) error {
 	defer client.Close()
 
 	store := sqlstore.New(client)
-	srv := newServer(store)
+	sessionStore := sessions.NewCookieStore([]byte(config.SessionKey))
+	srv := newServer(store, sessionStore)
 
 	return http.ListenAndServe(config.BindAddr, srv)
 }
 
 func newDB() (*firestore.Client, error) {
 	ctx := context.Background()
-	sa := option.WithCredentialsFile("/Users/roman/Documents/server/next-js-project/rest-api/internal/app/store/ikit-is-firebase-adminsdk-rexhu-6803f65b58.json")
+	sa := option.WithCredentialsFile("E:/Documents/Github/next-js-project/rest-api/internal/app/store/ikit-is-firebase-adminsdk-rexhu-6803f65b58.json")
 	app, err := firebase.NewApp(ctx, nil, sa)
 	if err != nil {
 		return nil, err
