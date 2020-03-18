@@ -11154,9 +11154,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var axiosConfig = {
-  withCredentials: false
-};
 var login = function login() {
   return function _callee(dispatch) {
     var msg;
@@ -11166,26 +11163,29 @@ var login = function login() {
           case 0:
             _context.prev = 0;
             _context.next = 3;
-            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('http://localhost:8081/sessions', null, axiosConfig));
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('http://127.0.0.1:8081/sessions', null, {
+              withCredentials: true
+            }));
 
           case 3:
             msg = _context.sent;
+            console.log(msg);
             return _context.abrupt("return", dispatch({
               type: _constants__WEBPACK_IMPORTED_MODULE_2__["LOGIN"],
               data: msg
             }));
 
-          case 7:
-            _context.prev = 7;
+          case 8:
+            _context.prev = 8;
             _context.t0 = _context["catch"](0);
             console.log(_context.t0);
 
-          case 10:
+          case 11:
           case "end":
             return _context.stop();
         }
       }
-    }, null, null, [[0, 7]], Promise);
+    }, null, null, [[0, 8]], Promise);
   };
 };
 var logout = function logout() {};

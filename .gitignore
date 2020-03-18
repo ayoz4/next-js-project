@@ -1,23 +1,22 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
-/.pnp
+node_modules/
+/.pnpa
 .pnp.js
 
 # testing
 /coverage
 
 # next.js
-/.next/
+.next/
 /out/
 
 # production
 /build
 
 # db connection
-/lib
-**/*.json
+dbConnect.json
 
 # misc
 .DS_Store
@@ -30,3 +29,4 @@ yarn-error.log*
 
 # Go binaries
 **/*.go
+*.exe

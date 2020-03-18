@@ -1,9 +1,14 @@
 package apiserver
 
 import (
+	"context"
 	"encoding/json"
+	"errors"
 	"net/http"
+	"time"
 
+	"github.com/google/uuid"
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/sessions"
 
 	"github.com/ayoz4/next-js-project/internal/app/model"
@@ -14,9 +19,16 @@ import (
 )
 
 const (
-	jwtKey      = "secretkey"
-	sessionName = "ikit"
+	sessionName        = "ikit"
+	ctxKeyUser  ctxKey = iota
+	ctxKeyRequestID
 )
+
+var (
+	errNotAuthenticated = errors.New("not authenticated")
+)
+
+type ctxKey int8
 
 type server struct {
 	router       *mux.Router
@@ -43,66 +55,98 @@ func (s *server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *server) configureRouter() {
+	s.router.Use(s.setRequestID)
+	s.router.Use(s.logRequest)
+	s.router.Use(handlers.CORS(handlers.AllowedOrigins([]string{"*"})))
+
 	s.router.HandleFunc("/goods", s.handleGoodsCreate()).Methods("POST")
 	s.router.HandleFunc("/goods/{id}", s.handleGetGood()).Methods("GET")
 	s.router.HandleFunc("/goods", s.handleGetGoods()).Methods("GET")
 	s.router.HandleFunc("/goods/{id}", s.handleDeleteGood()).Methods("DELETE")
 	s.router.HandleFunc("/goods", s.handleUpdateGood()).Methods("PUT")
 	s.router.HandleFunc("/sessions", s.handleSessionsCreate()).Methods("POST")
+
+	private := s.router.PathPrefix("/private").Subrouter()
+	private.Use(s.authenticateUser)
+	private.HandleFunc("/whoami", s.handleWhoami()).Methods("GET")
+}
+
+func (s *server) setRequestID(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		id := uuid.New().String()
+		w.Header().Set("X-Request-ID", id)
+		next.ServeHTTP(w, r.WithContext(context.WithValue(r.Context(), ctxKeyRequestID, id)))
+	})
+}
+
+func (s *server) logRequest(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		logger := s.logger.WithFields(logrus.Fields{
+			"remote_addr": r.RemoteAddr,
+			"request_id":  r.Context().Value(ctxKeyRequestID),
+		})
+
+		logger.Infof("started %s %s", r.Method, r.RequestURI)
+
+		start := time.Now()
+		next.ServeHTTP(w, r)
+
+		logger.Info("completed in %v", time.Now().Sub(start))
+	})
 }
 
 func (s *server) handleSessionsCreate() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
-		w.Header().Set("Access-Control-Allow-Credentials", "true")
-		w.Header().Set("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS")
-		w.Header().Set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Set-Cookie")
-
 		session, err := s.sessionStore.Get(r, sessionName)
 		if err != nil {
 			s.error(w, r, http.StatusInternalServerError, err)
 			return
 		}
 
-		session.Values["id"] = "lol"
-		/* if err := s.sessionStore.Save(r, w, session); err != nil {
-			s.error(w, r, http.StatusInternalServerError, err)
-			return
-		} */
 		s.sessionStore.Save(r, w, session)
 
-		str := session.Values["id"]
+		session.Values["id"] = "qwe"
 
-		s.respond(w, r, http.StatusOK, str)
+		session.Options.MaxAge = 5
 
-		/* token := jwt.NewWithClaims(jwt.SigningMethodES256, jwt.MapClaims{
-			"foo": "test",
-		})
-
-		fmt.Println(token)
-
-		tokenString, err := token.SignedString([]byte("secretword"))
+		err = s.sessionStore.Save(r, w, session)
 		if err != nil {
+			s.error(w, r, http.StatusInternalServerError, err)
 			return
 		}
 
-		fmt.Println(tokenString)
+		s.respond(w, r, http.StatusOK, nil)
+	}
+}
 
-		cookie := &http.Cookie{
-			Name:  "usertoken",
-			Value: tokenString,
+func (s *server) authenticateUser(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		session, err := s.sessionStore.Get(r, sessionName)
+		if err != nil {
+			s.error(w, r, http.StatusInternalServerError, err)
+			return
 		}
 
-		http.SetCookie(w, cookie)
+		id, ok := session.Values["id"]
+		if !ok {
+			s.error(w, r, http.StatusUnauthorized, errNotAuthenticated)
+			return
+		}
 
-		s.respond(w, r, http.StatusOK, nil) */
+		next.ServeHTTP(w, r.WithContext(context.WithValue(r.Context(), ctxKeyUser, id)))
+	})
+}
+
+func (s *server) handleWhoami() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		s.respond(w, r, http.StatusOK, r.Context().Value(ctxKeyUser))
 	}
 }
 
 func (s *server) handleGoodsCreate() http.HandlerFunc {
 	type request struct {
 		Name        string `json:"name"`
-		Description string `json:"description`
+		Description string `json:"description""`
 		Price       int    `json:"price"`
 	}
 
@@ -150,8 +194,6 @@ func (s *server) handleGetGoods() http.HandlerFunc {
 			return
 		}
 
-		w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
-		w.Header().Set("Content-Type", "application/json")
 		s.respond(w, r, http.StatusOK, goods)
 	}
 }

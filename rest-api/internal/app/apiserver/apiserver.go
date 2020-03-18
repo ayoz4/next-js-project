@@ -28,7 +28,7 @@ func Start(config *Config) error {
 
 func newDB() (*firestore.Client, error) {
 	ctx := context.Background()
-	sa := option.WithCredentialsFile("E:/Documents/Github/next-js-project/rest-api/internal/app/store/ikit-is-firebase-adminsdk-rexhu-6803f65b58.json")
+	sa := option.WithCredentialsFile("E:/Documents/Github/next-js-project/rest-api/internal/app/store/dbConnect.json")
 	app, err := firebase.NewApp(ctx, nil, sa)
 	if err != nil {
 		return nil, err

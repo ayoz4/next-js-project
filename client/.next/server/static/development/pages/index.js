@@ -2223,13 +2223,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../constants */ "./redux/constants.js");
 
 
-let axiosConfig = {
-  withCredentials: false
-};
 const login = () => {
   return async dispatch => {
     try {
-      const msg = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('http://localhost:8081/sessions', null, axiosConfig);
+      const msg = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('http://127.0.0.1:8081/sessions', null, {
+        withCredentials: true
+      });
+      console.log(msg);
       return dispatch({
         type: _constants__WEBPACK_IMPORTED_MODULE_1__["LOGIN"],
         data: msg
