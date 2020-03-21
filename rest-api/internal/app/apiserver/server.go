@@ -19,7 +19,7 @@ import (
 )
 
 const (
-	sessionName        = "ikit"
+	sessionName        = "user"
 	ctxKeyUser  ctxKey = iota
 	ctxKeyRequestID
 )
@@ -29,6 +29,10 @@ var (
 )
 
 type ctxKey int8
+
+type testUser struct {
+	Name string `json:"name"`
+}
 
 type server struct {
 	router       *mux.Router
@@ -57,7 +61,8 @@ func (s *server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 func (s *server) configureRouter() {
 	s.router.Use(s.setRequestID)
 	s.router.Use(s.logRequest)
-	s.router.Use(handlers.CORS(handlers.AllowedOrigins([]string{"*"})))
+	s.router.Use(handlers.CORS(handlers.AllowCredentials()))
+	s.router.Use(handlers.CORS(handlers.AllowedOrigins([]string{"http://localhost:3000"})))
 
 	s.router.HandleFunc("/goods", s.handleGoodsCreate()).Methods("POST")
 	s.router.HandleFunc("/goods/{id}", s.handleGetGood()).Methods("GET")
@@ -103,11 +108,12 @@ func (s *server) handleSessionsCreate() http.HandlerFunc {
 			return
 		}
 
-		s.sessionStore.Save(r, w, session)
+		session.Values["user_id"] = "roman"
 
-		session.Values["id"] = "qwe"
-
-		session.Options.MaxAge = 5
+		session.Options = &sessions.Options{
+			MaxAge: 10,
+			Secure: false,
+		}
 
 		err = s.sessionStore.Save(r, w, session)
 		if err != nil {
@@ -127,7 +133,7 @@ func (s *server) authenticateUser(next http.Handler) http.Handler {
 			return
 		}
 
-		id, ok := session.Values["id"]
+		id, ok := session.Values["user_id"]
 		if !ok {
 			s.error(w, r, http.StatusUnauthorized, errNotAuthenticated)
 			return

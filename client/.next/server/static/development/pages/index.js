@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -192,128 +192,160 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-redux */ "react-redux");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _redux_actions_usersActions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../redux/actions/usersActions */ "./redux/actions/usersActions.js");
+/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! js-cookie */ "js-cookie");
+/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(js_cookie__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var jsonwebtoken__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! jsonwebtoken */ "jsonwebtoken");
+/* harmony import */ var jsonwebtoken__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(jsonwebtoken__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _redux_actions_usersActions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../redux/actions/usersActions */ "./redux/actions/usersActions.js");
 var _jsxFileName = "E:\\Documents\\Github\\next-js-project\\client\\components\\nav.js";
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
 
 
 
-const Nav = ({
-  path,
-  onLogining
-}) => {
-  const onLogin = e => {
-    e.preventDefault();
-    onLogining();
-  };
 
-  return __jsx("nav", {
-    class: "navbar navbar-expand-lg navbar-light bg-light",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 16
-    },
-    __self: undefined
-  }, __jsx("a", {
-    class: "navbar-brand",
-    href: "#",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 17
-    },
-    __self: undefined
-  }, "Navbar"), __jsx("button", {
-    class: "navbar-toggler",
-    type: "button",
-    "data-toggle": "collapse",
-    "data-target": "#navbarNavAltMarkup",
-    "aria-controls": "navbarNavAltMarkup",
-    "aria-expanded": "false",
-    "aria-label": "Toggle navigation",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 20
-    },
-    __self: undefined
-  }, __jsx("span", {
-    class: "navbar-toggler-icon",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 29
-    },
-    __self: undefined
-  })), __jsx("div", {
-    class: "collapse navbar-collapse",
-    id: "navbarNavAltMarkup",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 31
-    },
-    __self: undefined
-  }, __jsx("div", {
-    class: "navbar-nav",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 32
-    },
-    __self: undefined
-  }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 33
-    },
-    __self: undefined
-  }, __jsx("a", {
-    className: classnames__WEBPACK_IMPORTED_MODULE_3___default()('nav-item nav-link', {
-      active: path == '/' ? true : false
-    }),
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 34
-    },
-    __self: undefined
-  }, "Home")), __jsx(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/cart",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 42
-    },
-    __self: undefined
-  }, __jsx("a", {
-    className: classnames__WEBPACK_IMPORTED_MODULE_3___default()('nav-item nav-link', {
-      active: path == '/cart' ? true : false
-    }),
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 43
-    },
-    __self: undefined
-  }, "Cart")), __jsx("a", {
-    className: "navbar-brand",
-    href: "/",
-    onClick: e => onLogin(e),
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 51
-    },
-    __self: undefined
-  }, "Login"))));
-};
+
+
+
+class Nav extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
+  constructor(...args) {
+    super(...args);
+
+    _defineProperty(this, "state", {
+      name: ""
+    });
+
+    _defineProperty(this, "onLogin", e => {
+      e.preventDefault();
+      this.props.onLogining();
+      this.setState({
+        name: jsonwebtoken__WEBPACK_IMPORTED_MODULE_6___default.a.decode(js_cookie__WEBPACK_IMPORTED_MODULE_5___default.a.get("user"))
+      });
+    });
+
+    _defineProperty(this, 0, void 0);
+  }
+
+  render() {
+    // const user = cookies.get("user")
+    const userRender = this.state.name !== "" ? __jsx("a", {
+      className: "navbar-brand",
+      href: "/",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 28
+      },
+      __self: this
+    }, this.state.name) : __jsx("a", {
+      className: "navbar-brand",
+      href: "/",
+      onClick: e => this.onLogin(e),
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 32
+      },
+      __self: this
+    }, "Login");
+    return __jsx("nav", {
+      class: "navbar navbar-expand-lg navbar-light bg-light",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 38
+      },
+      __self: this
+    }, __jsx("a", {
+      class: "navbar-brand",
+      href: "#",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 39
+      },
+      __self: this
+    }, "Navbar"), __jsx("button", {
+      class: "navbar-toggler",
+      type: "button",
+      "data-toggle": "collapse",
+      "data-target": "#navbarNavAltMarkup",
+      "aria-controls": "navbarNavAltMarkup",
+      "aria-expanded": "false",
+      "aria-label": "Toggle navigation",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 42
+      },
+      __self: this
+    }, __jsx("span", {
+      class: "navbar-toggler-icon",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 51
+      },
+      __self: this
+    })), __jsx("div", {
+      class: "collapse navbar-collapse",
+      id: "navbarNavAltMarkup",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 53
+      },
+      __self: this
+    }, __jsx("div", {
+      class: "navbar-nav",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 54
+      },
+      __self: this
+    }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
+      href: "/",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 55
+      },
+      __self: this
+    }, __jsx("a", {
+      className: classnames__WEBPACK_IMPORTED_MODULE_3___default()("nav-item nav-link", {
+        active: this.props.path == "/" ? true : false
+      }),
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 56
+      },
+      __self: this
+    }, "Home")), __jsx(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
+      href: "/cart",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 64
+      },
+      __self: this
+    }, __jsx("a", {
+      className: classnames__WEBPACK_IMPORTED_MODULE_3___default()("nav-item nav-link", {
+        active: this.props.path == "/cart" ? true : false
+      }),
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 65
+      },
+      __self: this
+    }, "Cart")), userRender)));
+  }
+
+}
 
 const pathChooser = path => {
-  if (path == '/') {
+  if (path == "/") {
     return;
   }
 };
 
 const mapDispatchToProps = dispatch => ({
   onLogining: () => {
-    dispatch(Object(_redux_actions_usersActions__WEBPACK_IMPORTED_MODULE_5__["login"])());
+    dispatch(Object(_redux_actions_usersActions__WEBPACK_IMPORTED_MODULE_7__["login"])());
   }
 });
 
@@ -2226,13 +2258,11 @@ __webpack_require__.r(__webpack_exports__);
 const login = () => {
   return async dispatch => {
     try {
-      const msg = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('http://127.0.0.1:8081/sessions', null, {
+      await axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("http://localhost:8081/sessions", null, {
         withCredentials: true
       });
-      console.log(msg);
       return dispatch({
-        type: _constants__WEBPACK_IMPORTED_MODULE_1__["LOGIN"],
-        data: msg
+        type: _constants__WEBPACK_IMPORTED_MODULE_1__["LOGIN"]
       });
     } catch (err) {
       console.log(err);
@@ -2275,7 +2305,7 @@ const goodsUrl = "localhost:8081/goods";
 
 /***/ }),
 
-/***/ 3:
+/***/ 4:
 /*!******************************!*\
   !*** multi ./pages/index.js ***!
   \******************************/
@@ -2306,6 +2336,28 @@ module.exports = require("axios");
 /***/ (function(module, exports) {
 
 module.exports = require("classnames");
+
+/***/ }),
+
+/***/ "js-cookie":
+/*!****************************!*\
+  !*** external "js-cookie" ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("js-cookie");
+
+/***/ }),
+
+/***/ "jsonwebtoken":
+/*!*******************************!*\
+  !*** external "jsonwebtoken" ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("jsonwebtoken");
 
 /***/ }),
 

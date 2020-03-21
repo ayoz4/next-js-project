@@ -694,16 +694,19 @@ const rootReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"]
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants */ "./redux/constants.js");
+/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! js-cookie */ "js-cookie");
+/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(js_cookie__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../constants */ "./redux/constants.js");
+
 
 
 const users = (state = [], action) => {
   switch (action.type) {
-    case _constants__WEBPACK_IMPORTED_MODULE_0__["LOGIN"]:
-      console.log(action.data);
+    case _constants__WEBPACK_IMPORTED_MODULE_1__["LOGIN"]:
+      console.log(js_cookie__WEBPACK_IMPORTED_MODULE_0___default.a.get('user'));
       return state;
 
-    case _constants__WEBPACK_IMPORTED_MODULE_0__["LOGOUT"]:
+    case _constants__WEBPACK_IMPORTED_MODULE_1__["LOGOUT"]:
       return state;
 
     default:
@@ -724,6 +727,17 @@ const users = (state = [], action) => {
 
 module.exports = __webpack_require__(/*! private-next-pages/_app.js */"./pages/_app.js");
 
+
+/***/ }),
+
+/***/ "js-cookie":
+/*!****************************!*\
+  !*** external "js-cookie" ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("js-cookie");
 
 /***/ }),
 
