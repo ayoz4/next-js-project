@@ -1,19 +1,25 @@
 import axios from "axios";
 
-import { LOGIN } from "../constants";
+import { LOGIN, serverUrl, LOGOUT } from "../constants";
 
 export const login = () => {
   return async dispatch => {
     try {
-      await axios.post("http://localhost:8081/sessions", null, {
+      const msg = await axios.post(serverUrl + "sessions", null, {
         withCredentials: true
       });
 
-      return dispatch({ type: LOGIN });
+      console.log(msg);
+
+      return dispatch({ type: LOGIN, data: msg.data });
     } catch (err) {
       console.log(err);
     }
   };
 };
 
-export const logout = () => {};
+export const logout = () => {
+  return dispatch => {
+    return dispatch({ type: LOGOUT });
+  };
+};

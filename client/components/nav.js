@@ -3,36 +3,45 @@ import { Head } from "next/head";
 import Link from "next/link";
 import classNames from "classnames";
 import { connect } from "react-redux";
-import Cookies from "js-cookie";
-import jwt from "jsonwebtoken";
 
-import { login } from "../redux/actions/usersActions";
+import { login, logout } from "../redux/actions/usersActions";
+import { createGood } from "../redux/actions/goodsActions";
+import Window from "./createModal";
 
 class Nav extends Component {
-  state = {
-    name: ""
-  };
-
   onLogin = e => {
     e.preventDefault();
     this.props.onLogining();
-    this.setState({ name: jwt.decode(Cookies.get("user")) });
   };
-  0;
+
+  onLogout = e => {
+    e.preventDefault();
+    this.props.onLogout();
+  };
 
   render() {
-    // const user = cookies.get("user")
+    const { users } = this.props;
 
-    const userRender =
-      this.state.name !== "" ? (
-        <a className="navbar-brand" href="/">
-          {this.state.name}
-        </a>
-      ) : (
+    let authButtons;
+    if (users.username !== null) {
+      authButtons = (
+        <div>
+          <a className="navbar-brand" href="/">
+            {this.props.users.username}
+          </a>
+          <Window createGood={this.props.onCreateGood} />
+          <a className="navbar-brand" href="/" onClick={e => this.onLogout(e)}>
+            Logout
+          </a>
+        </div>
+      );
+    } else {
+      authButtons = (
         <a className="navbar-brand" href="/" onClick={e => this.onLogin(e)}>
           Login
         </a>
       );
+    }
 
     return (
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -70,7 +79,7 @@ class Nav extends Component {
                 Cart
               </a>
             </Link>
-            {userRender}
+            {authButtons}
           </div>
         </div>
       </nav>
@@ -87,7 +96,17 @@ const pathChooser = path => {
 const mapDispatchToProps = dispatch => ({
   onLogining: () => {
     dispatch(login());
+  },
+  onCreateGood: data => {
+    dispatch(createGood(data));
+  },
+  onLogout: () => {
+    dispatch(logout());
   }
 });
 
-export default connect(null, mapDispatchToProps)(Nav);
+const mapStateToProps = state => ({
+  users: state.users
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Nav);

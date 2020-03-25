@@ -2,12 +2,18 @@ import Cookies from "js-cookie";
 
 import { LOGIN, LOGOUT } from "../constants";
 
-const users = (state = [], action) => {
+let initialState = {
+  username: null
+};
+
+const users = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN:
-      console.log(Cookies.get('user'));
+      state = action.data;
+      // state.username = action.data.username;
       return state;
     case LOGOUT:
+      state = initialState;
       return state;
     default:
       return state;

@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -104,12 +104,10 @@ module.exports =
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _images_movieHouse_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../images/movieHouse.png */ "./images/movieHouse.png");
-/* harmony import */ var _images_movieHouse_png__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_images_movieHouse_png__WEBPACK_IMPORTED_MODULE_1__);
-var _jsxFileName = "E:\\Documents\\Github\\next-js-project\\client\\components\\Good.js";
+var _jsxFileName = "/Users/roman/Documents/GitHub/next-js-project/client/components/Good.js";
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
-
+// import image from "../images/movieHouse.png";
 /* harmony default export */ __webpack_exports__["default"] = (({
   good,
   onClick
@@ -129,7 +127,6 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
   },
   __self: undefined
 }, __jsx("img", {
-  src: _images_movieHouse_png__WEBPACK_IMPORTED_MODULE_1___default.a,
   className: "card-img-top",
   width: "150",
   height: "255",
@@ -143,21 +140,21 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
   class: "card-body",
   __source: {
     fileName: _jsxFileName,
-    lineNumber: 13
+    lineNumber: 7
   },
   __self: undefined
 }, __jsx("h5", {
   class: "card-title",
   __source: {
     fileName: _jsxFileName,
-    lineNumber: 14
+    lineNumber: 8
   },
   __self: undefined
 }, good.name), __jsx("p", {
   class: "card-text",
   __source: {
     fileName: _jsxFileName,
-    lineNumber: 15
+    lineNumber: 9
   },
   __self: undefined
 }, good.description), __jsx("a", {
@@ -166,10 +163,170 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
   onClick: e => onClick(e, good),
   __source: {
     fileName: _jsxFileName,
-    lineNumber: 16
+    lineNumber: 10
   },
   __self: undefined
 }, "Add to cart"), good.price))));
+
+/***/ }),
+
+/***/ "./components/createModal.js":
+/*!***********************************!*\
+  !*** ./components/createModal.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material-ui/core */ "@material-ui/core");
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__);
+var _jsxFileName = "/Users/roman/Documents/GitHub/next-js-project/client/components/createModal.js";
+var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+const Window = props => {
+  const [open, setOpen] = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(false);
+  const [good, setGood] = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState({
+    name: "",
+    description: "",
+    price: 0
+  });
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const onChange = e => {
+    setGood(_objectSpread({}, good, {
+      [e.target.id]: e.target.value
+    }));
+  };
+
+  const onSubmit = () => {
+    // setOpen(false);
+    props.createGood(good);
+  };
+
+  return __jsx("div", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 40
+    },
+    __self: undefined
+  }, __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+    variant: "outlined",
+    color: "primary",
+    onClick: handleClickOpen,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 41
+    },
+    __self: undefined
+  }, "Create good"), __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Dialog"], {
+    open: open,
+    onClose: handleClose,
+    "aria-labelledby": "form-dialog-title",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 44
+    },
+    __self: undefined
+  }, __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["DialogTitle"], {
+    id: "form-dialog-title",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 49
+    },
+    __self: undefined
+  }, "Create good"), __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["DialogContent"], {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 50
+    },
+    __self: undefined
+  }, __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["DialogContentText"], {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 51
+    },
+    __self: undefined
+  }, "Enter the fields with the correct values to create a new good."), __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["TextField"], {
+    autoFocus: true,
+    margin: "dense",
+    id: "name",
+    label: "Good's name",
+    type: "text",
+    onChange: e => onChange(e),
+    fullWidth: true,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 54
+    },
+    __self: undefined
+  }), __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["TextField"], {
+    margin: "dense",
+    id: "description",
+    label: "Good's description",
+    type: "text",
+    onChange: e => onChange(e),
+    fullWidth: true,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 64
+    },
+    __self: undefined
+  }), __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["TextField"], {
+    margin: "dense",
+    id: "price",
+    label: "Good's price",
+    type: "number",
+    onChange: e => onChange(e),
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 73
+    },
+    __self: undefined
+  })), __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["DialogActions"], {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 81
+    },
+    __self: undefined
+  }, __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+    onClick: handleClose,
+    color: "primary",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 82
+    },
+    __self: undefined
+  }, "Cancel"), __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+    onClick: onSubmit,
+    color: "primary",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 85
+    },
+    __self: undefined
+  }, "Submit"))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Window);
 
 /***/ }),
 
@@ -192,12 +349,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-redux */ "react-redux");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! js-cookie */ "js-cookie");
-/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(js_cookie__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var jsonwebtoken__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! jsonwebtoken */ "jsonwebtoken");
-/* harmony import */ var jsonwebtoken__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(jsonwebtoken__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _redux_actions_usersActions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../redux/actions/usersActions */ "./redux/actions/usersActions.js");
-var _jsxFileName = "E:\\Documents\\Github\\next-js-project\\client\\components\\nav.js";
+/* harmony import */ var _redux_actions_usersActions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../redux/actions/usersActions */ "./redux/actions/usersActions.js");
+/* harmony import */ var _redux_actions_goodsActions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../redux/actions/goodsActions */ "./redux/actions/goodsActions.js");
+/* harmony import */ var _createModal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./createModal */ "./components/createModal.js");
+var _jsxFileName = "/Users/roman/Documents/GitHub/next-js-project/client/components/nav.js";
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -215,46 +370,73 @@ class Nav extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
   constructor(...args) {
     super(...args);
 
-    _defineProperty(this, "state", {
-      name: ""
-    });
-
     _defineProperty(this, "onLogin", e => {
       e.preventDefault();
       this.props.onLogining();
-      this.setState({
-        name: jsonwebtoken__WEBPACK_IMPORTED_MODULE_6___default.a.decode(js_cookie__WEBPACK_IMPORTED_MODULE_5___default.a.get("user"))
-      });
     });
 
-    _defineProperty(this, 0, void 0);
+    _defineProperty(this, "onLogout", e => {
+      e.preventDefault();
+      this.props.onLogout();
+    });
   }
 
   render() {
-    // const user = cookies.get("user")
-    const userRender = this.state.name !== "" ? __jsx("a", {
-      className: "navbar-brand",
-      href: "/",
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 28
-      },
-      __self: this
-    }, this.state.name) : __jsx("a", {
-      className: "navbar-brand",
-      href: "/",
-      onClick: e => this.onLogin(e),
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 32
-      },
-      __self: this
-    }, "Login");
+    const {
+      users
+    } = this.props;
+    let authButtons;
+
+    if (users.username !== null) {
+      authButtons = __jsx("div", {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 28
+        },
+        __self: this
+      }, __jsx("a", {
+        className: "navbar-brand",
+        href: "/",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 29
+        },
+        __self: this
+      }, this.props.users.username), __jsx(_createModal__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        createGood: this.props.onCreateGood,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 32
+        },
+        __self: this
+      }), __jsx("a", {
+        className: "navbar-brand",
+        href: "/",
+        onClick: e => this.onLogout(e),
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 33
+        },
+        __self: this
+      }, "Logout"));
+    } else {
+      authButtons = __jsx("a", {
+        className: "navbar-brand",
+        href: "/",
+        onClick: e => this.onLogin(e),
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 40
+        },
+        __self: this
+      }, "Login");
+    }
+
     return __jsx("nav", {
       class: "navbar navbar-expand-lg navbar-light bg-light",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 38
+        lineNumber: 47
       },
       __self: this
     }, __jsx("a", {
@@ -262,7 +444,7 @@ class Nav extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
       href: "#",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 39
+        lineNumber: 48
       },
       __self: this
     }, "Navbar"), __jsx("button", {
@@ -275,14 +457,14 @@ class Nav extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
       "aria-label": "Toggle navigation",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 42
+        lineNumber: 51
       },
       __self: this
     }, __jsx("span", {
       class: "navbar-toggler-icon",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 51
+        lineNumber: 60
       },
       __self: this
     })), __jsx("div", {
@@ -290,21 +472,21 @@ class Nav extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
       id: "navbarNavAltMarkup",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 53
+        lineNumber: 62
       },
       __self: this
     }, __jsx("div", {
       class: "navbar-nav",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 54
+        lineNumber: 63
       },
       __self: this
     }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
       href: "/",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 55
+        lineNumber: 64
       },
       __self: this
     }, __jsx("a", {
@@ -313,14 +495,14 @@ class Nav extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
       }),
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 56
+        lineNumber: 65
       },
       __self: this
     }, "Home")), __jsx(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
       href: "/cart",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 64
+        lineNumber: 73
       },
       __self: this
     }, __jsx("a", {
@@ -329,10 +511,10 @@ class Nav extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
       }),
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 65
+        lineNumber: 74
       },
       __self: this
-    }, "Cart")), userRender)));
+    }, "Cart")), authButtons)));
   }
 
 }
@@ -345,22 +527,21 @@ const pathChooser = path => {
 
 const mapDispatchToProps = dispatch => ({
   onLogining: () => {
-    dispatch(Object(_redux_actions_usersActions__WEBPACK_IMPORTED_MODULE_7__["login"])());
+    dispatch(Object(_redux_actions_usersActions__WEBPACK_IMPORTED_MODULE_5__["login"])());
+  },
+  onCreateGood: data => {
+    dispatch(Object(_redux_actions_goodsActions__WEBPACK_IMPORTED_MODULE_6__["createGood"])(data));
+  },
+  onLogout: () => {
+    dispatch(Object(_redux_actions_usersActions__WEBPACK_IMPORTED_MODULE_5__["logout"])());
   }
 });
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_4__["connect"])(null, mapDispatchToProps)(Nav));
+const mapStateToProps = state => ({
+  users: state.users
+});
 
-/***/ }),
-
-/***/ "./images/movieHouse.png":
-/*!*******************************!*\
-  !*** ./images/movieHouse.png ***!
-  \*******************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "/_next/static/images/movieHouse-f3b0b1ca980ae9c46852e1bc4421061a.png";
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_4__["connect"])(mapStateToProps, mapDispatchToProps)(Nav));
 
 /***/ }),
 
@@ -2060,7 +2241,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Good__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/Good */ "./components/Good.js");
 /* harmony import */ var _redux_actions_cartActions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../redux/actions/cartActions */ "./redux/actions/cartActions.js");
 /* harmony import */ var _redux_actions_goodsActions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../redux/actions/goodsActions */ "./redux/actions/goodsActions.js");
-var _jsxFileName = "E:\\Documents\\Github\\next-js-project\\client\\pages\\index.js";
+var _jsxFileName = "/Users/roman/Documents/GitHub/next-js-project/client/pages/index.js";
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
 
@@ -2120,7 +2301,7 @@ class Home extends react__WEBPACK_IMPORTED_MODULE_1__["Component"] {
       },
       __self: this
     })), __jsx(_components_nav__WEBPACK_IMPORTED_MODULE_3__["default"], {
-      path: '/',
+      path: "/",
       __source: {
         fileName: _jsxFileName,
         lineNumber: 32
@@ -2144,7 +2325,7 @@ class Home extends react__WEBPACK_IMPORTED_MODULE_1__["Component"] {
     }))), __jsx(styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default.a, {
       id: "3295222989",
       __self: this
-    }, ".row-cols-md-3.jsx-3295222989{margin:3vh 1.5vw 1.5vh 1.5vw;}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkU6XFxEb2N1bWVudHNcXEdpdGh1YlxcbmV4dC1qcy1wcm9qZWN0XFxjbGllbnRcXHBhZ2VzXFxpbmRleC5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUF1QzRCLEFBRzBDLDZCQUMvQiIsImZpbGUiOiJFOlxcRG9jdW1lbnRzXFxHaXRodWJcXG5leHQtanMtcHJvamVjdFxcY2xpZW50XFxwYWdlc1xcaW5kZXguanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QsIHsgQ29tcG9uZW50IH0gZnJvbSAncmVhY3QnXHJcbmltcG9ydCB7IGNvbm5lY3QgfSBmcm9tICdyZWFjdC1yZWR1eCdcclxuXHJcbmltcG9ydCBOYXYgZnJvbSAnLi4vY29tcG9uZW50cy9uYXYnXHJcbmltcG9ydCBIZWFkIGZyb20gJ25leHQvaGVhZCdcclxuaW1wb3J0IEdvb2QgZnJvbSAnLi4vY29tcG9uZW50cy9Hb29kJ1xyXG5pbXBvcnQgeyBhZGRUb0NhcnQgfSBmcm9tICcuLi9yZWR1eC9hY3Rpb25zL2NhcnRBY3Rpb25zJ1xyXG5pbXBvcnQgeyBnZXRHb29kcyB9IGZyb20gJy4uL3JlZHV4L2FjdGlvbnMvZ29vZHNBY3Rpb25zJ1xyXG5cclxuY2xhc3MgSG9tZSBleHRlbmRzIENvbXBvbmVudCB7XHJcbiAgICBjb21wb25lbnREaWRNb3VudCAoKSB7XHJcbiAgICAgICAgdGhpcy5wcm9wcy5vbkdldEdvb2RzKClcclxuICAgIH1cclxuXHJcbiAgICBvbkFkZFRvQ2FydCA9IChlLCBnb29kKSA9PiB7XHJcbiAgICAgICAgZS5wcmV2ZW50RGVmYXVsdCgpXHJcbiAgICAgICAgdGhpcy5wcm9wcy5vbkFkZFRvQ2FydChnb29kKVxyXG4gICAgfVxyXG5cclxuICAgIHJlbmRlciAoKSB7XHJcbiAgICAgICAgY29uc3QgZ29vZHMgPSB0aGlzLnByb3BzLmdvb2RzLmdvb2RzXHJcblxyXG4gICAgICAgIHJldHVybiAoXHJcbiAgICAgICAgICAgIDxkaXY+XHJcbiAgICAgICAgICAgICAgICA8SGVhZD5cclxuICAgICAgICAgICAgICAgICAgICA8dGl0bGU+VGVzdDwvdGl0bGU+XHJcbiAgICAgICAgICAgICAgICAgICAgPGxpbmtcclxuICAgICAgICAgICAgICAgICAgICAgICAgcmVsPVwic3R5bGVzaGVldFwiXHJcbiAgICAgICAgICAgICAgICAgICAgICAgIGhyZWY9XCJodHRwczovL3N0YWNrcGF0aC5ib290c3RyYXBjZG4uY29tL2Jvb3RzdHJhcC80LjQuMS9jc3MvYm9vdHN0cmFwLm1pbi5jc3NcIlxyXG4gICAgICAgICAgICAgICAgICAgIC8+XHJcbiAgICAgICAgICAgICAgICA8L0hlYWQ+XHJcbiAgICAgICAgICAgICAgICA8TmF2IHBhdGg9eycvJ30vPlxyXG5cclxuICAgICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwicm93IHJvdy1jb2xzLTEgcm93LWNvbHMtbWQtMyBjb250YWluZXIgbXgtYXV0b1wiPlxyXG4gICAgICAgICAgICAgICAgICAgIHtnb29kcy5tYXAoZ29vZCA9PiAoXHJcbiAgICAgICAgICAgICAgICAgICAgICAgIDxHb29kIGdvb2Q9e2dvb2R9IG9uQ2xpY2s9e3RoaXMub25BZGRUb0NhcnR9Lz5cclxuICAgICAgICAgICAgICAgICAgICApKX1cclxuICAgICAgICAgICAgICAgIDwvZGl2PlxyXG5cclxuICAgICAgICAgICAgICAgIDxzdHlsZSBqc3g+e2BcclxuICAgICAgICAgIC5yb3ctY29scy1tZC0zIHtcclxuICAgICAgICAgICAgbWFyZ2luOiAzdmggMS41dncgMS41dmggMS41dnc7XHJcbiAgICAgICAgICB9XHJcbiAgICAgICAgYH08L3N0eWxlPlxyXG4gICAgICAgICAgICA8L2Rpdj5cclxuICAgICAgICApXHJcbiAgICB9XHJcbn1cclxuXHJcbmNvbnN0IG1hcERpc3BhdGNoVG9Qcm9wcyA9IGRpc3BhdGNoID0+IHtcclxuICAgIHJldHVybiB7XHJcbiAgICAgICAgb25HZXRHb29kczogKCkgPT4ge1xyXG4gICAgICAgICAgICBkaXNwYXRjaChnZXRHb29kcygpKVxyXG4gICAgICAgIH0sXHJcbiAgICAgICAgb25BZGRUb0NhcnQ6IGdvb2QgPT4ge1xyXG4gICAgICAgICAgICBkaXNwYXRjaChhZGRUb0NhcnQoZ29vZCkpXHJcbiAgICAgICAgfSxcclxuICAgIH1cclxufVxyXG5cclxuY29uc3QgbWFwU3RhdGVUb1Byb3BzID0gc3RhdGUgPT4gKHtcclxuICAgIGdvb2RzOiBzdGF0ZS5nb29kcyxcclxufSlcclxuXHJcbmV4cG9ydCBkZWZhdWx0IGNvbm5lY3QobWFwU3RhdGVUb1Byb3BzLCBtYXBEaXNwYXRjaFRvUHJvcHMpKEhvbWUpXHJcbiJdfQ== */\n/*@ sourceURL=E:\\\\Documents\\\\Github\\\\next-js-project\\\\client\\\\pages\\\\index.js */"));
+    }, ".row-cols-md-3.jsx-3295222989{margin:3vh 1.5vw 1.5vh 1.5vw;}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9yb21hbi9Eb2N1bWVudHMvR2l0SHViL25leHQtanMtcHJvamVjdC9jbGllbnQvcGFnZXMvaW5kZXguanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBdUNvQixBQUcwQyw2QkFDL0IiLCJmaWxlIjoiL1VzZXJzL3JvbWFuL0RvY3VtZW50cy9HaXRIdWIvbmV4dC1qcy1wcm9qZWN0L2NsaWVudC9wYWdlcy9pbmRleC5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBSZWFjdCwgeyBDb21wb25lbnQgfSBmcm9tIFwicmVhY3RcIjtcbmltcG9ydCB7IGNvbm5lY3QgfSBmcm9tIFwicmVhY3QtcmVkdXhcIjtcblxuaW1wb3J0IE5hdiBmcm9tIFwiLi4vY29tcG9uZW50cy9uYXZcIjtcbmltcG9ydCBIZWFkIGZyb20gXCJuZXh0L2hlYWRcIjtcbmltcG9ydCBHb29kIGZyb20gXCIuLi9jb21wb25lbnRzL0dvb2RcIjtcbmltcG9ydCB7IGFkZFRvQ2FydCB9IGZyb20gXCIuLi9yZWR1eC9hY3Rpb25zL2NhcnRBY3Rpb25zXCI7XG5pbXBvcnQgeyBnZXRHb29kcyB9IGZyb20gXCIuLi9yZWR1eC9hY3Rpb25zL2dvb2RzQWN0aW9uc1wiO1xuXG5jbGFzcyBIb21lIGV4dGVuZHMgQ29tcG9uZW50IHtcbiAgY29tcG9uZW50RGlkTW91bnQoKSB7XG4gICAgdGhpcy5wcm9wcy5vbkdldEdvb2RzKCk7XG4gIH1cblxuICBvbkFkZFRvQ2FydCA9IChlLCBnb29kKSA9PiB7XG4gICAgZS5wcmV2ZW50RGVmYXVsdCgpO1xuICAgIHRoaXMucHJvcHMub25BZGRUb0NhcnQoZ29vZCk7XG4gIH07XG5cbiAgcmVuZGVyKCkge1xuICAgIGNvbnN0IGdvb2RzID0gdGhpcy5wcm9wcy5nb29kcy5nb29kcztcblxuICAgIHJldHVybiAoXG4gICAgICA8ZGl2PlxuICAgICAgICA8SGVhZD5cbiAgICAgICAgICA8dGl0bGU+VGVzdDwvdGl0bGU+XG4gICAgICAgICAgPGxpbmtcbiAgICAgICAgICAgIHJlbD1cInN0eWxlc2hlZXRcIlxuICAgICAgICAgICAgaHJlZj1cImh0dHBzOi8vc3RhY2twYXRoLmJvb3RzdHJhcGNkbi5jb20vYm9vdHN0cmFwLzQuNC4xL2Nzcy9ib290c3RyYXAubWluLmNzc1wiXG4gICAgICAgICAgLz5cbiAgICAgICAgPC9IZWFkPlxuICAgICAgICA8TmF2IHBhdGg9e1wiL1wifSAvPlxuXG4gICAgICAgIDxkaXYgY2xhc3NOYW1lPVwicm93IHJvdy1jb2xzLTEgcm93LWNvbHMtbWQtMyBjb250YWluZXIgbXgtYXV0b1wiPlxuICAgICAgICAgIHtnb29kcy5tYXAoZ29vZCA9PiAoXG4gICAgICAgICAgICA8R29vZCBnb29kPXtnb29kfSBvbkNsaWNrPXt0aGlzLm9uQWRkVG9DYXJ0fSAvPlxuICAgICAgICAgICkpfVxuICAgICAgICA8L2Rpdj5cblxuICAgICAgICA8c3R5bGUganN4PntgXG4gICAgICAgICAgLnJvdy1jb2xzLW1kLTMge1xuICAgICAgICAgICAgbWFyZ2luOiAzdmggMS41dncgMS41dmggMS41dnc7XG4gICAgICAgICAgfVxuICAgICAgICBgfTwvc3R5bGU+XG4gICAgICA8L2Rpdj5cbiAgICApO1xuICB9XG59XG5cbmNvbnN0IG1hcERpc3BhdGNoVG9Qcm9wcyA9IGRpc3BhdGNoID0+IHtcbiAgcmV0dXJuIHtcbiAgICBvbkdldEdvb2RzOiAoKSA9PiB7XG4gICAgICBkaXNwYXRjaChnZXRHb29kcygpKTtcbiAgICB9LFxuICAgIG9uQWRkVG9DYXJ0OiBnb29kID0+IHtcbiAgICAgIGRpc3BhdGNoKGFkZFRvQ2FydChnb29kKSk7XG4gICAgfVxuICB9O1xufTtcblxuY29uc3QgbWFwU3RhdGVUb1Byb3BzID0gc3RhdGUgPT4gKHtcbiAgZ29vZHM6IHN0YXRlLmdvb2RzXG59KTtcblxuZXhwb3J0IGRlZmF1bHQgY29ubmVjdChtYXBTdGF0ZVRvUHJvcHMsIG1hcERpc3BhdGNoVG9Qcm9wcykoSG9tZSk7XG4iXX0= */\n/*@ sourceURL=/Users/roman/Documents/GitHub/next-js-project/client/pages/index.js */"));
   }
 
 }
@@ -2220,7 +2401,7 @@ const getGoods = () => {
     });
 
     try {
-      const msg = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('http://127.0.0.1:8081/goods');
+      const msg = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(_constants__WEBPACK_IMPORTED_MODULE_1__["serverUrl"] + "goods");
       return dispatch({
         type: _constants__WEBPACK_IMPORTED_MODULE_1__["FETCH_GOODS_SUCCESS"],
         data: msg.data
@@ -2234,7 +2415,20 @@ const getGoods = () => {
   };
 };
 const createGood = data => {
-  return dispatch => {};
+  return async dispatch => {
+    try {
+      await axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(_constants__WEBPACK_IMPORTED_MODULE_1__["serverUrl"] + "goods", data, {
+        withCredentials: true
+      });
+      return dispatch({
+        type: _constants__WEBPACK_IMPORTED_MODULE_1__["CREATE_GOOD_SUCCESS"]
+      });
+    } catch (error) {
+      dispatch({
+        type: _constants__WEBPACK_IMPORTED_MODULE_1__["CREATE_GOOD_FAILURE"]
+      });
+    }
+  };
 };
 
 /***/ }),
@@ -2258,18 +2452,26 @@ __webpack_require__.r(__webpack_exports__);
 const login = () => {
   return async dispatch => {
     try {
-      await axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("http://localhost:8081/sessions", null, {
+      const msg = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(_constants__WEBPACK_IMPORTED_MODULE_1__["serverUrl"] + "sessions", null, {
         withCredentials: true
       });
+      console.log(msg);
       return dispatch({
-        type: _constants__WEBPACK_IMPORTED_MODULE_1__["LOGIN"]
+        type: _constants__WEBPACK_IMPORTED_MODULE_1__["LOGIN"],
+        data: msg.data
       });
     } catch (err) {
       console.log(err);
     }
   };
 };
-const logout = () => {};
+const logout = () => {
+  return dispatch => {
+    return dispatch({
+      type: _constants__WEBPACK_IMPORTED_MODULE_1__["LOGOUT"]
+    });
+  };
+};
 
 /***/ }),
 
@@ -2277,11 +2479,12 @@ const logout = () => {};
 /*!****************************!*\
   !*** ./redux/constants.js ***!
   \****************************/
-/*! exports provided: ADD_TO_CART, DELETE_FROM_CART, QUANTITY_CHANGED, CLEAR_CART, FETCH_GOODS_SUCCESS, FETCH_GOODS_FAILURE, FETCH_GOODS_REQUEST, LOGIN, LOGOUT, goodsUrl */
+/*! exports provided: serverUrl, ADD_TO_CART, DELETE_FROM_CART, QUANTITY_CHANGED, CLEAR_CART, FETCH_GOODS_SUCCESS, FETCH_GOODS_FAILURE, FETCH_GOODS_REQUEST, CREATE_GOOD_SUCCESS, CREATE_GOOD_FAILURE, LOGIN, LOGOUT */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "serverUrl", function() { return serverUrl; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_TO_CART", function() { return ADD_TO_CART; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_FROM_CART", function() { return DELETE_FROM_CART; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QUANTITY_CHANGED", function() { return QUANTITY_CHANGED; });
@@ -2289,9 +2492,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_GOODS_SUCCESS", function() { return FETCH_GOODS_SUCCESS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_GOODS_FAILURE", function() { return FETCH_GOODS_FAILURE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_GOODS_REQUEST", function() { return FETCH_GOODS_REQUEST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CREATE_GOOD_SUCCESS", function() { return CREATE_GOOD_SUCCESS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CREATE_GOOD_FAILURE", function() { return CREATE_GOOD_FAILURE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LOGIN", function() { return LOGIN; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LOGOUT", function() { return LOGOUT; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "goodsUrl", function() { return goodsUrl; });
+const serverUrl = "http://127.0.0.1:8081/";
 const ADD_TO_CART = "ADD_TO_CART";
 const DELETE_FROM_CART = "DELETE_FROM_CART";
 const QUANTITY_CHANGED = "QUANTITY_CHANGED";
@@ -2299,21 +2504,33 @@ const CLEAR_CART = "CLEAR_CART";
 const FETCH_GOODS_SUCCESS = "FETCH_GOODS_SUCCESS";
 const FETCH_GOODS_FAILURE = "FETCH_GOODS_FAILURE";
 const FETCH_GOODS_REQUEST = "FETCH_GOODS_REQUEST";
+const CREATE_GOOD_SUCCESS = "CREATE_GOOD_SUCCESS";
+const CREATE_GOOD_FAILURE = "CREATE_GOOD_SUCCESS";
 const LOGIN = "LOGIN";
 const LOGOUT = "LOGOUT";
-const goodsUrl = "localhost:8081/goods";
 
 /***/ }),
 
-/***/ 4:
+/***/ 3:
 /*!******************************!*\
   !*** multi ./pages/index.js ***!
   \******************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! E:\Documents\Github\next-js-project\client\pages\index.js */"./pages/index.js");
+module.exports = __webpack_require__(/*! /Users/roman/Documents/GitHub/next-js-project/client/pages/index.js */"./pages/index.js");
 
+
+/***/ }),
+
+/***/ "@material-ui/core":
+/*!************************************!*\
+  !*** external "@material-ui/core" ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("@material-ui/core");
 
 /***/ }),
 
@@ -2336,28 +2553,6 @@ module.exports = require("axios");
 /***/ (function(module, exports) {
 
 module.exports = require("classnames");
-
-/***/ }),
-
-/***/ "js-cookie":
-/*!****************************!*\
-  !*** external "js-cookie" ***!
-  \****************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("js-cookie");
-
-/***/ }),
-
-/***/ "jsonwebtoken":
-/*!*******************************!*\
-  !*** external "jsonwebtoken" ***!
-  \*******************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("jsonwebtoken");
 
 /***/ }),
 

@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["static\\development\\pages\\_app.js"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["static/development/pages/_app.js"],{
 
 /***/ "./node_modules/@babel/runtime/helpers/arrayWithHoles.js":
 /*!***************************************************************!*\
@@ -1244,12 +1244,12 @@ module.exports = __webpack_require__(/*! ./dist/pages/_app */ "./node_modules/ne
 
 /***/ "./node_modules/next/dist/build/polyfills/object-assign.js":
 /*!***********************************************************************************************************************!*\
-  !*** delegated ./node_modules/next/dist/build/polyfills/object-assign.js from dll-reference dll_7ff8e5d585f359d44ab5 ***!
+  !*** delegated ./node_modules/next/dist/build/polyfills/object-assign.js from dll-reference dll_c2e10d183b950a67d9e7 ***!
   \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(/*! dll-reference dll_7ff8e5d585f359d44ab5 */ "dll-reference dll_7ff8e5d585f359d44ab5"))("./node_modules/next/dist/build/polyfills/object-assign.js");
+module.exports = (__webpack_require__(/*! dll-reference dll_c2e10d183b950a67d9e7 */ "dll-reference dll_c2e10d183b950a67d9e7"))("./node_modules/next/dist/build/polyfills/object-assign.js");
 
 /***/ }),
 
@@ -2849,12 +2849,12 @@ function createUrl(router) {
 
 /***/ "./node_modules/prop-types/checkPropTypes.js":
 /*!*********************************************************************************************************!*\
-  !*** delegated ./node_modules/prop-types/checkPropTypes.js from dll-reference dll_7ff8e5d585f359d44ab5 ***!
+  !*** delegated ./node_modules/prop-types/checkPropTypes.js from dll-reference dll_c2e10d183b950a67d9e7 ***!
   \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(/*! dll-reference dll_7ff8e5d585f359d44ab5 */ "dll-reference dll_7ff8e5d585f359d44ab5"))("./node_modules/prop-types/checkPropTypes.js");
+module.exports = (__webpack_require__(/*! dll-reference dll_c2e10d183b950a67d9e7 */ "dll-reference dll_c2e10d183b950a67d9e7"))("./node_modules/prop-types/checkPropTypes.js");
 
 /***/ }),
 
@@ -3489,12 +3489,12 @@ if (true) {
 
 /***/ "./node_modules/prop-types/lib/ReactPropTypesSecret.js":
 /*!*******************************************************************************************************************!*\
-  !*** delegated ./node_modules/prop-types/lib/ReactPropTypesSecret.js from dll-reference dll_7ff8e5d585f359d44ab5 ***!
+  !*** delegated ./node_modules/prop-types/lib/ReactPropTypesSecret.js from dll-reference dll_c2e10d183b950a67d9e7 ***!
   \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(/*! dll-reference dll_7ff8e5d585f359d44ab5 */ "dll-reference dll_7ff8e5d585f359d44ab5"))("./node_modules/prop-types/lib/ReactPropTypesSecret.js");
+module.exports = (__webpack_require__(/*! dll-reference dll_c2e10d183b950a67d9e7 */ "dll-reference dll_c2e10d183b950a67d9e7"))("./node_modules/prop-types/lib/ReactPropTypesSecret.js");
 
 /***/ }),
 
@@ -3709,12 +3709,12 @@ exports.encode = exports.stringify = __webpack_require__(/*! ./encode */ "./node
 
 /***/ "./node_modules/react-dom/index.js":
 /*!***********************************************************************************************!*\
-  !*** delegated ./node_modules/react-dom/index.js from dll-reference dll_7ff8e5d585f359d44ab5 ***!
+  !*** delegated ./node_modules/react-dom/index.js from dll-reference dll_c2e10d183b950a67d9e7 ***!
   \***********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(/*! dll-reference dll_7ff8e5d585f359d44ab5 */ "dll-reference dll_7ff8e5d585f359d44ab5"))("./node_modules/react-dom/index.js");
+module.exports = (__webpack_require__(/*! dll-reference dll_c2e10d183b950a67d9e7 */ "dll-reference dll_c2e10d183b950a67d9e7"))("./node_modules/react-dom/index.js");
 
 /***/ }),
 
@@ -5891,12 +5891,12 @@ if (false) {} else {
 
 /***/ "./node_modules/react/index.js":
 /*!*******************************************************************************************!*\
-  !*** delegated ./node_modules/react/index.js from dll-reference dll_7ff8e5d585f359d44ab5 ***!
+  !*** delegated ./node_modules/react/index.js from dll-reference dll_c2e10d183b950a67d9e7 ***!
   \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = (__webpack_require__(/*! dll-reference dll_7ff8e5d585f359d44ab5 */ "dll-reference dll_7ff8e5d585f359d44ab5"))("./node_modules/react/index.js");
+module.exports = (__webpack_require__(/*! dll-reference dll_c2e10d183b950a67d9e7 */ "dll-reference dll_c2e10d183b950a67d9e7"))("./node_modules/react/index.js");
 
 /***/ }),
 
@@ -8634,7 +8634,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _jsxFileName = "E:\\Documents\\Github\\next-js-project\\client\\pages\\_app.js";
+var _jsxFileName = "/Users/roman/Documents/GitHub/next-js-project/client/pages/_app.js";
 var __jsx = react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement;
 
 
@@ -8736,11 +8736,12 @@ function (_App) {
 /*!****************************!*\
   !*** ./redux/constants.js ***!
   \****************************/
-/*! exports provided: ADD_TO_CART, DELETE_FROM_CART, QUANTITY_CHANGED, CLEAR_CART, FETCH_GOODS_SUCCESS, FETCH_GOODS_FAILURE, FETCH_GOODS_REQUEST, LOGIN, LOGOUT, goodsUrl */
+/*! exports provided: serverUrl, ADD_TO_CART, DELETE_FROM_CART, QUANTITY_CHANGED, CLEAR_CART, FETCH_GOODS_SUCCESS, FETCH_GOODS_FAILURE, FETCH_GOODS_REQUEST, CREATE_GOOD_SUCCESS, CREATE_GOOD_FAILURE, LOGIN, LOGOUT */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "serverUrl", function() { return serverUrl; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_TO_CART", function() { return ADD_TO_CART; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_FROM_CART", function() { return DELETE_FROM_CART; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QUANTITY_CHANGED", function() { return QUANTITY_CHANGED; });
@@ -8748,9 +8749,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_GOODS_SUCCESS", function() { return FETCH_GOODS_SUCCESS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_GOODS_FAILURE", function() { return FETCH_GOODS_FAILURE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_GOODS_REQUEST", function() { return FETCH_GOODS_REQUEST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CREATE_GOOD_SUCCESS", function() { return CREATE_GOOD_SUCCESS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CREATE_GOOD_FAILURE", function() { return CREATE_GOOD_FAILURE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LOGIN", function() { return LOGIN; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LOGOUT", function() { return LOGOUT; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "goodsUrl", function() { return goodsUrl; });
+var serverUrl = "http://127.0.0.1:8081/";
 var ADD_TO_CART = "ADD_TO_CART";
 var DELETE_FROM_CART = "DELETE_FROM_CART";
 var QUANTITY_CHANGED = "QUANTITY_CHANGED";
@@ -8758,9 +8761,10 @@ var CLEAR_CART = "CLEAR_CART";
 var FETCH_GOODS_SUCCESS = "FETCH_GOODS_SUCCESS";
 var FETCH_GOODS_FAILURE = "FETCH_GOODS_FAILURE";
 var FETCH_GOODS_REQUEST = "FETCH_GOODS_REQUEST";
+var CREATE_GOOD_SUCCESS = "CREATE_GOOD_SUCCESS";
+var CREATE_GOOD_FAILURE = "CREATE_GOOD_SUCCESS";
 var LOGIN = "LOGIN";
 var LOGOUT = "LOGOUT";
-var goodsUrl = "localhost:8081/goods";
 
 /***/ }),
 
@@ -8801,13 +8805,13 @@ var makeStore = function makeStore(initialState, _ref) {
 
   if (isServer) {
     initialState = initialState || {
-      fromServer: 'foo'
+      fromServer: "foo"
     };
     return makeConfiguredStore(_reducers__WEBPACK_IMPORTED_MODULE_5__["default"], initialState);
   } else {
     var persistConfig = {
-      key: 'nextjs',
-      whitelist: ['cart'],
+      key: "nextjs",
+      whitelist: ["cart"],
       // blacklist: ["goods"],
       storage: redux_persist_lib_storage__WEBPACK_IMPORTED_MODULE_4___default.a
     };
@@ -8972,17 +8976,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../constants */ "./redux/constants.js");
 
 
+var initialState = {
+  username: null
+};
 
 var users = function users() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
     case _constants__WEBPACK_IMPORTED_MODULE_1__["LOGIN"]:
-      console.log(js_cookie__WEBPACK_IMPORTED_MODULE_0___default.a.get('user'));
+      state = action.data; // state.username = action.data.username;
+
       return state;
 
     case _constants__WEBPACK_IMPORTED_MODULE_1__["LOGOUT"]:
+      state = initialState;
       return state;
 
     default:
@@ -9002,19 +9011,19 @@ var users = function users() {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! next-client-pages-loader?page=%2F_app&absolutePagePath=private-next-pages%2F_app.js! */"./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?page=%2F_app&absolutePagePath=private-next-pages%2F_app.js!./");
-module.exports = __webpack_require__(/*! E:\Documents\Github\next-js-project\client\node_modules\next\dist\client\router.js */"./node_modules/next/dist/client/router.js");
+module.exports = __webpack_require__(/*! /Users/roman/Documents/GitHub/next-js-project/client/node_modules/next/dist/client/router.js */"./node_modules/next/dist/client/router.js");
 
 
 /***/ }),
 
-/***/ "dll-reference dll_7ff8e5d585f359d44ab5":
+/***/ "dll-reference dll_c2e10d183b950a67d9e7":
 /*!*******************************************!*\
-  !*** external "dll_7ff8e5d585f359d44ab5" ***!
+  !*** external "dll_c2e10d183b950a67d9e7" ***!
   \*******************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = dll_7ff8e5d585f359d44ab5;
+module.exports = dll_c2e10d183b950a67d9e7;
 
 /***/ })
 

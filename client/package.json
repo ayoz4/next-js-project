@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@material-ui/core": "^4.9.7",
     "@primer/octicons-react": "^9.4.0",
     "@zeit/next-css": "^1.0.1",
     "axios": "^0.19.2",
@@ -29,6 +30,9 @@
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
+    "semantic-ui": "^2.4.2",
+    "semantic-ui-css": "^2.2.11",
+    "semantic-ui-react": "^0.88.2",
     "styled-components": "^5.0.1",
     "styled-jsx": "^3.2.4"
   },

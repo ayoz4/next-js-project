@@ -101,6 +101,10 @@ func (s *server) logRequest(next http.Handler) http.Handler {
 }
 
 func (s *server) handleSessionsCreate() http.HandlerFunc {
+	type response struct {
+		Username string `json:"username"`
+	}
+
 	return func(w http.ResponseWriter, r *http.Request) {
 		session, err := s.sessionStore.Get(r, sessionName)
 		if err != nil {
@@ -121,7 +125,11 @@ func (s *server) handleSessionsCreate() http.HandlerFunc {
 			return
 		}
 
-		s.respond(w, r, http.StatusOK, nil)
+		res := &response{
+			Username: "roman",
+		}
+
+		s.respond(w, r, http.StatusOK, res)
 	}
 }
 
@@ -152,7 +160,7 @@ func (s *server) handleWhoami() http.HandlerFunc {
 func (s *server) handleGoodsCreate() http.HandlerFunc {
 	type request struct {
 		Name        string `json:"name"`
-		Description string `json:"description""`
+		Description string `json:"description"`
 		Price       int    `json:"price"`
 	}
 
@@ -180,9 +188,9 @@ func (s *server) handleGoodsCreate() http.HandlerFunc {
 func (s *server) handleGetGood() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
-		gId := vars["id"]
+		gID := vars["id"]
 
-		g, err := s.store.Good().GetGood(gId)
+		g, err := s.store.Good().GetGood(gID)
 		if err != nil {
 			s.error(w, r, http.StatusBadRequest, err)
 			return
@@ -207,14 +215,14 @@ func (s *server) handleGetGoods() http.HandlerFunc {
 func (s *server) handleDeleteGood() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
-		gId := vars["id"]
+		gID := vars["id"]
 
-		if err := s.store.Good().DeleteGood(gId); err != nil {
+		if err := s.store.Good().DeleteGood(gID); err != nil {
 			s.error(w, r, http.StatusBadRequest, err)
 			return
 		}
 
-		s.respond(w, r, http.StatusOK, gId)
+		s.respond(w, r, http.StatusOK, gID)
 	}
 }
 
@@ -222,7 +230,7 @@ func (s *server) handleUpdateGood() http.HandlerFunc {
 	type request struct {
 		ID          string `json:"id"`
 		Name        string `json:"name"`
-		Description string `json:"description`
+		Description string `json:"description"`
 		Price       int    `json:"price"`
 	}
 

@@ -413,7 +413,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var next_redux_wrapper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! next-redux-wrapper */ "next-redux-wrapper");
 /* harmony import */ var next_redux_wrapper__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(next_redux_wrapper__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../redux */ "./redux/index.js");
-var _jsxFileName = "E:\\Documents\\Github\\next-js-project\\client\\pages\\_app.js";
+var _jsxFileName = "/Users/roman/Documents/GitHub/next-js-project/client/pages/_app.js";
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
@@ -476,11 +476,12 @@ class MyApp extends next_app__WEBPACK_IMPORTED_MODULE_1___default.a {
 /*!****************************!*\
   !*** ./redux/constants.js ***!
   \****************************/
-/*! exports provided: ADD_TO_CART, DELETE_FROM_CART, QUANTITY_CHANGED, CLEAR_CART, FETCH_GOODS_SUCCESS, FETCH_GOODS_FAILURE, FETCH_GOODS_REQUEST, LOGIN, LOGOUT, goodsUrl */
+/*! exports provided: serverUrl, ADD_TO_CART, DELETE_FROM_CART, QUANTITY_CHANGED, CLEAR_CART, FETCH_GOODS_SUCCESS, FETCH_GOODS_FAILURE, FETCH_GOODS_REQUEST, CREATE_GOOD_SUCCESS, CREATE_GOOD_FAILURE, LOGIN, LOGOUT */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "serverUrl", function() { return serverUrl; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_TO_CART", function() { return ADD_TO_CART; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_FROM_CART", function() { return DELETE_FROM_CART; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QUANTITY_CHANGED", function() { return QUANTITY_CHANGED; });
@@ -488,9 +489,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_GOODS_SUCCESS", function() { return FETCH_GOODS_SUCCESS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_GOODS_FAILURE", function() { return FETCH_GOODS_FAILURE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_GOODS_REQUEST", function() { return FETCH_GOODS_REQUEST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CREATE_GOOD_SUCCESS", function() { return CREATE_GOOD_SUCCESS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CREATE_GOOD_FAILURE", function() { return CREATE_GOOD_FAILURE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LOGIN", function() { return LOGIN; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LOGOUT", function() { return LOGOUT; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "goodsUrl", function() { return goodsUrl; });
+const serverUrl = "http://127.0.0.1:8081/";
 const ADD_TO_CART = "ADD_TO_CART";
 const DELETE_FROM_CART = "DELETE_FROM_CART";
 const QUANTITY_CHANGED = "QUANTITY_CHANGED";
@@ -498,9 +501,10 @@ const CLEAR_CART = "CLEAR_CART";
 const FETCH_GOODS_SUCCESS = "FETCH_GOODS_SUCCESS";
 const FETCH_GOODS_FAILURE = "FETCH_GOODS_FAILURE";
 const FETCH_GOODS_REQUEST = "FETCH_GOODS_REQUEST";
+const CREATE_GOOD_SUCCESS = "CREATE_GOOD_SUCCESS";
+const CREATE_GOOD_FAILURE = "CREATE_GOOD_SUCCESS";
 const LOGIN = "LOGIN";
 const LOGOUT = "LOGOUT";
-const goodsUrl = "localhost:8081/goods";
 
 /***/ }),
 
@@ -542,13 +546,13 @@ const makeStore = (initialState, {
 }) => {
   if (isServer) {
     initialState = initialState || {
-      fromServer: 'foo'
+      fromServer: "foo"
     };
     return makeConfiguredStore(_reducers__WEBPACK_IMPORTED_MODULE_5__["default"], initialState);
   } else {
     const persistConfig = {
-      key: 'nextjs',
-      whitelist: ['cart'],
+      key: "nextjs",
+      whitelist: ["cart"],
       // blacklist: ["goods"],
       storage: (redux_persist_lib_storage__WEBPACK_IMPORTED_MODULE_4___default())
     };
@@ -699,14 +703,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../constants */ "./redux/constants.js");
 
 
+let initialState = {
+  username: null
+};
 
-const users = (state = [], action) => {
+const users = (state = initialState, action) => {
   switch (action.type) {
     case _constants__WEBPACK_IMPORTED_MODULE_1__["LOGIN"]:
-      console.log(js_cookie__WEBPACK_IMPORTED_MODULE_0___default.a.get('user'));
+      state = action.data; // state.username = action.data.username;
+
       return state;
 
     case _constants__WEBPACK_IMPORTED_MODULE_1__["LOGOUT"]:
+      state = initialState;
       return state;
 
     default:
