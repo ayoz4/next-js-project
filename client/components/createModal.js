@@ -38,9 +38,7 @@ const Window = props => {
   };
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Create good
-      </Button>
+      <Button onClick={handleClickOpen}>Create good</Button>
       <Dialog
         open={open}
         onClose={handleClose}

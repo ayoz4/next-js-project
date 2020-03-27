@@ -1,4 +1,4 @@
-export const serverUrl = "http://127.0.0.1:8081/";
+export const serverUrl = "http://localhost:8081/";
 
 export const ADD_TO_CART = "ADD_TO_CART";
 export const DELETE_FROM_CART = "DELETE_FROM_CART";

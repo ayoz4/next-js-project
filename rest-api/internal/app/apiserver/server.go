@@ -4,7 +4,9 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/google/uuid"
@@ -61,19 +63,24 @@ func (s *server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 func (s *server) configureRouter() {
 	s.router.Use(s.setRequestID)
 	s.router.Use(s.logRequest)
-	s.router.Use(handlers.CORS(handlers.AllowCredentials()))
-	s.router.Use(handlers.CORS(handlers.AllowedOrigins([]string{"http://localhost:3000"})))
+	s.router.Use(
+		handlers.CORS(
+			handlers.AllowedOrigins([]string{"http://localhost:3000"}),
+			handlers.AllowCredentials(),
+			handlers.AllowedMethods([]string{"POST", "GET", "OPTIONS", "DELETE", "PUT"})),
+	)
 
-	s.router.HandleFunc("/goods", s.handleGoodsCreate()).Methods("POST")
 	s.router.HandleFunc("/goods/{id}", s.handleGetGood()).Methods("GET")
 	s.router.HandleFunc("/goods", s.handleGetGoods()).Methods("GET")
 	s.router.HandleFunc("/goods/{id}", s.handleDeleteGood()).Methods("DELETE")
 	s.router.HandleFunc("/goods", s.handleUpdateGood()).Methods("PUT")
 	s.router.HandleFunc("/sessions", s.handleSessionsCreate()).Methods("POST")
+	s.router.HandleFunc("/delsessions", s.handleDeleteSession()).Methods("POST")
 
 	private := s.router.PathPrefix("/private").Subrouter()
 	private.Use(s.authenticateUser)
 	private.HandleFunc("/whoami", s.handleWhoami()).Methods("GET")
+	private.HandleFunc("/goods", s.handleGoodsCreate()).Methods("POST", "OPTIONS")
 }
 
 func (s *server) setRequestID(next http.Handler) http.Handler {
@@ -115,8 +122,9 @@ func (s *server) handleSessionsCreate() http.HandlerFunc {
 		session.Values["user_id"] = "roman"
 
 		session.Options = &sessions.Options{
-			MaxAge: 10,
-			Secure: false,
+			MaxAge:   1000,
+			Secure:   false,
+			HttpOnly: true,
 		}
 
 		err = s.sessionStore.Save(r, w, session)
@@ -130,6 +138,28 @@ func (s *server) handleSessionsCreate() http.HandlerFunc {
 		}
 
 		s.respond(w, r, http.StatusOK, res)
+	}
+}
+
+func (s *server) handleDeleteSession() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		session, err := s.sessionStore.Get(r, sessionName)
+		if err != nil {
+			s.error(w, r, http.StatusInternalServerError, err)
+			return
+		}
+
+		session.Options = &sessions.Options{
+			MaxAge: -1,
+			Secure: false,
+		}
+
+		if err := s.sessionStore.Save(r, w, session); err != nil {
+			s.error(w, r, http.StatusInternalServerError, err)
+			return
+		}
+
+		s.respond(w, r, http.StatusOK, nil)
 	}
 }
 
@@ -151,6 +181,23 @@ func (s *server) authenticateUser(next http.Handler) http.Handler {
 	})
 }
 
+func (s *server) optionCORS(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == http.MethodOptions {
+			fmt.Fprintln(w, r.URL.Path)
+			if r.URL.Path == "/private/goods" {
+				fmt.Fprintln(w, r.URL.Path)
+			}
+		}
+
+		r.Method = http.MethodPost
+		fmt.Fprintln(w, r.Method)
+
+		s.handleGoodsCreate()
+		// next.ServeHTTP(w, r)
+	})
+}
+
 func (s *server) handleWhoami() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		s.respond(w, r, http.StatusOK, r.Context().Value(ctxKeyUser))
@@ -161,20 +208,25 @@ func (s *server) handleGoodsCreate() http.HandlerFunc {
 	type request struct {
 		Name        string `json:"name"`
 		Description string `json:"description"`
-		Price       int    `json:"price"`
+		Price       string `json:"price"`
 	}
 
 	return func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Add("Access-Control-Allow-Origin", "*")
+
 		req := &request{}
 		if err := json.NewDecoder(r.Body).Decode(req); err != nil {
 			s.error(w, r, http.StatusBadRequest, err)
 			return
 		}
+		defer r.Body.Close()
+
+		p, _ := strconv.Atoi(req.Price)
 
 		g := &model.Good{
 			Name:        req.Name,
 			Description: req.Description,
-			Price:       req.Price,
+			Price:       p,
 		}
 		if err := s.store.Good().Create(g); err != nil {
 			s.error(w, r, http.StatusUnprocessableEntity, err)

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import Nav from "../components/nav";
+import Navbar from "../components/Navbar";
 import Head from "next/head";
 import Good from "../components/Good";
 import { addToCart } from "../redux/actions/cartActions";
@@ -29,7 +29,6 @@ class Home extends Component {
             href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           />
         </Head>
-        <Nav path={"/"} />
 
         <div className="row row-cols-1 row-cols-md-3 container mx-auto">
           {goods.map(good => (

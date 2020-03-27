@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import withRedux from "next-redux-wrapper";
 import { makeStore } from "../redux";
+import Navbar from "../components/Navbar";
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -18,7 +19,7 @@ class MyApp extends App {
     return (
       <Provider store={store}>
         <PersistGate persistor={store.__persistor} loading={null}>
-          <Component {...pageProps} />
+          <Navbar />
         </PersistGate>
       </Provider>
     );

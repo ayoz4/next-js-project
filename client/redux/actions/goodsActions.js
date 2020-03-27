@@ -26,9 +26,18 @@ export const getGoods = () => {
 export const createGood = data => {
   return async dispatch => {
     try {
-      await axios.post(serverUrl + "goods", data, {
+      parseInt(data.price);
+
+      console.log(data);
+
+      const msg = await axios({
+        method: "POST",
+        url: serverUrl + "private/" + "goods",
+        data: JSON.stringify(data),
         withCredentials: true
       });
+
+      console.log(msg);
 
       return dispatch({ type: CREATE_GOOD_SUCCESS });
     } catch (error) {

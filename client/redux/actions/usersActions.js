@@ -9,7 +9,7 @@ export const login = () => {
         withCredentials: true
       });
 
-      console.log(msg);
+      console.log(document.cookie);
 
       return dispatch({ type: LOGIN, data: msg.data });
     } catch (err) {
@@ -19,7 +19,15 @@ export const login = () => {
 };
 
 export const logout = () => {
-  return dispatch => {
-    return dispatch({ type: LOGOUT });
+  return async dispatch => {
+    try {
+      const msg = await axios.post(serverUrl + "delsessions", null, {
+        withCredentials: true
+      });
+
+      return dispatch({ type: LOGOUT });
+    } catch (err) {
+      console.log(err);
+    }
   };
 };

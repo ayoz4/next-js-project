@@ -4,7 +4,7 @@ import Head from "next/head";
 import Octicon, { X } from "@primer/octicons-react";
 import Link from "next/link";
 
-import Nav from "../../components/nav";
+import Navbar from "../../components/Navbar";
 import {
   deleteFromCart,
   incrementCount
@@ -35,7 +35,6 @@ const Cart = props => {
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         />
       </Head>
-      <Nav path={"/cart"} />
 
       {props.cart.length ? (
         <CartWrapper className="table container mx-auto">
