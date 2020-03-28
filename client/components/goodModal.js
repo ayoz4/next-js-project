@@ -8,9 +8,8 @@ import {
   DialogContentText,
   TextField
 } from "@material-ui/core";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
-// import { TextField } from "formik-material-ui";
 
 const goodCreateSchema = Yup.object().shape({
   name: Yup.string().required(),
@@ -20,11 +19,6 @@ const goodCreateSchema = Yup.object().shape({
 
 const Window = props => {
   const [open, setOpen] = React.useState(false);
-  const [good, setGood] = React.useState({
-    name: "",
-    description: "",
-    price: 0
-  });
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -34,18 +28,10 @@ const Window = props => {
     setOpen(false);
   };
 
-  const onChange = e => {
-    setGood({
-      ...good,
-      [e.target.id]: e.target.value
-    });
+  const onSubmit = good => {
+    setOpen(false);
+    props.createGood(good);
   };
-
-  // const onSubmit = e => {
-  //   e.preventDefault();
-  //   // setOpen(false);
-  //   // props.createGood(good);
-  // };
   return (
     <div>
       <Button onClick={handleClickOpen}>Create good</Button>
@@ -58,7 +44,7 @@ const Window = props => {
           initialValues={{ name: "", description: "", price: 0 }}
           validationSchema={goodCreateSchema}
           onSubmit={values => {
-            console.log(values);
+            onSubmit(values);
           }}
         >
           {({ errors, touched, values, handleChange }) => (

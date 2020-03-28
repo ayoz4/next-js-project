@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import Navbar from "../components/Navbar";
 import Head from "next/head";
 import Good from "../components/Good";
 import { addToCart } from "../redux/actions/cartActions";
-import { getGoods } from "../redux/actions/goodsActions";
+import { getGoods, deleteGood } from "../redux/actions/goodsActions";
 
 class Home extends Component {
   componentDidMount() {
@@ -19,6 +18,7 @@ class Home extends Component {
 
   render() {
     const goods = this.props.goods.goods;
+    const users = this.props.users;
 
     return (
       <div>
@@ -32,7 +32,13 @@ class Home extends Component {
 
         <div className="row row-cols-1 row-cols-md-3 container mx-auto">
           {goods.map(good => (
-            <Good key={good.id} good={good} onClick={this.onAddToCart} />
+            <Good
+              key={good.id}
+              good={good}
+              onAddToCart={this.onAddToCart}
+              onDeleteGood={this.props.onDeleteGood}
+              user={users}
+            />
           ))}
         </div>
 
@@ -53,12 +59,16 @@ const mapDispatchToProps = dispatch => {
     },
     onAddToCart: good => {
       dispatch(addToCart(good));
+    },
+    onDeleteGood: id => {
+      dispatch(deleteGood(id));
     }
   };
 };
 
 const mapStateToProps = state => ({
-  goods: state.goods
+  goods: state.goods,
+  users: state.users
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

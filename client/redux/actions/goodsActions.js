@@ -6,8 +6,12 @@ import {
   FETCH_GOODS_REQUEST,
   CREATE_GOOD_SUCCESS,
   CREATE_GOOD_FAILURE,
-  serverUrl
+  serverUrl,
+  DELETE_GOOD_SUCCESS,
+  DELETE_GOOD_FAILURE
 } from "../constants";
+
+const getGoodsRequest = () => {};
 
 export const getGoods = () => {
   return async dispatch => {
@@ -26,20 +30,36 @@ export const getGoods = () => {
 export const createGood = data => {
   return async dispatch => {
     try {
-      parseInt(data.price);
-
-      const msg = await axios({
+      await axios({
         method: "POST",
         url: serverUrl + "private/" + "goods",
         data: JSON.stringify(data),
         withCredentials: true
       });
 
-      console.log(msg);
+      // dispatch({ type: CREATE_GOOD_SUCCESS });
 
-      return dispatch({ type: CREATE_GOOD_SUCCESS });
-    } catch (error) {
+      return dispatch(getGoods());
+    } catch (err) {
       dispatch({ type: CREATE_GOOD_FAILURE });
+    }
+  };
+};
+
+export const deleteGood = id => {
+  return async dispatch => {
+    try {
+      await axios({
+        method: "DELETE",
+        url: serverUrl + "private/" + "goods/" + id,
+        withCredentials: true
+      });
+
+      // dispatch({ type: DELETE_GOOD_SUCCESS, data: id });
+
+      return dispatch(getGoods());
+    } catch (err) {
+      dispatch({ type: DELETE_GOOD_FAILURE, data: err });
     }
   };
 };

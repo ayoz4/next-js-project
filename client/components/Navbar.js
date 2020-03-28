@@ -1,7 +1,4 @@
-import React, { Component } from "react";
-import { Head } from "next/head";
-import Link from "next/link";
-import classNames from "classnames";
+import React from "react";
 import { connect } from "react-redux";
 import {
   AppBar,
@@ -16,7 +13,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import { login, logout } from "../redux/actions/usersActions";
 import { createGood } from "../redux/actions/goodsActions";
-import Window from "./createModal";
+import Window from "./goodModal";
 import Cart from "../pages/cart";
 import Home from "../pages";
 
@@ -145,12 +142,6 @@ const Nav = props => {
       </TabPanel>
     </div>
   );
-};
-
-const pathChooser = path => {
-  if (path == "/") {
-    return;
-  }
 };
 
 const mapDispatchToProps = dispatch => ({

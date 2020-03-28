@@ -10,17 +10,21 @@ import {
   Button,
   Typography
 } from "@material-ui/core";
+import DeleteIcon from "@material-ui/icons/Delete";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
     maxWidth: 345
   },
   media: {
     height: 140
+  },
+  button: {
+    margin: theme.spacing(1)
   }
-});
+}));
 
-export default ({ good, onClick }) => {
+export default ({ good, onAddToCart, user, onDeleteGood }) => {
   const classes = useStyles();
 
   return (
@@ -44,9 +48,31 @@ export default ({ good, onClick }) => {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary" onClick={e => onClick(e, good)}>
-          Add to cart
-        </Button>
+        {user.username !== null ? (
+          <div>
+            <Button size="small" color="primary">
+              Edit
+            </Button>
+            <Button
+              variant="contained"
+              color="secondary"
+              size="small"
+              className={classes.button}
+              startIcon={<DeleteIcon />}
+              onClick={() => onDeleteGood(good.id)}
+            >
+              Delete
+            </Button>
+          </div>
+        ) : (
+          <Button
+            size="small"
+            color="primary"
+            onClick={e => onAddToCart(e, good)}
+          >
+            Add to cart
+          </Button>
+        )}
       </CardActions>
     </Card>
   );

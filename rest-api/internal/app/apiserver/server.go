@@ -6,7 +6,6 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
-	"strconv"
 	"time"
 
 	"github.com/google/uuid"
@@ -72,7 +71,6 @@ func (s *server) configureRouter() {
 
 	s.router.HandleFunc("/goods/{id}", s.handleGetGood()).Methods("GET")
 	s.router.HandleFunc("/goods", s.handleGetGoods()).Methods("GET")
-	s.router.HandleFunc("/goods/{id}", s.handleDeleteGood()).Methods("DELETE")
 	s.router.HandleFunc("/goods", s.handleUpdateGood()).Methods("PUT")
 	s.router.HandleFunc("/sessions", s.handleSessionsCreate()).Methods("POST")
 	s.router.HandleFunc("/delsessions", s.handleDeleteSession()).Methods("POST")
@@ -80,7 +78,8 @@ func (s *server) configureRouter() {
 	private := s.router.PathPrefix("/private").Subrouter()
 	private.Use(s.authenticateUser)
 	private.HandleFunc("/whoami", s.handleWhoami()).Methods("GET")
-	private.HandleFunc("/goods", s.handleGoodsCreate()).Methods("POST", "OPTIONS")
+	private.HandleFunc("/goods", s.handleGoodsCreate()).Methods("POST")
+	private.HandleFunc("/goods/{id}", s.handleDeleteGood()).Methods("DELETE", "OPTIONS")
 }
 
 func (s *server) setRequestID(next http.Handler) http.Handler {
@@ -208,12 +207,10 @@ func (s *server) handleGoodsCreate() http.HandlerFunc {
 	type request struct {
 		Name        string `json:"name"`
 		Description string `json:"description"`
-		Price       string `json:"price"`
+		Price       int    `json:"price"`
 	}
 
 	return func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Add("Access-Control-Allow-Origin", "*")
-
 		req := &request{}
 		if err := json.NewDecoder(r.Body).Decode(req); err != nil {
 			s.error(w, r, http.StatusBadRequest, err)
@@ -221,12 +218,10 @@ func (s *server) handleGoodsCreate() http.HandlerFunc {
 		}
 		defer r.Body.Close()
 
-		p, _ := strconv.Atoi(req.Price)
-
 		g := &model.Good{
 			Name:        req.Name,
 			Description: req.Description,
-			Price:       p,
+			Price:       req.Price,
 		}
 		if err := s.store.Good().Create(g); err != nil {
 			s.error(w, r, http.StatusUnprocessableEntity, err)
