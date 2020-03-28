@@ -28,8 +28,6 @@ export const createGood = data => {
     try {
       parseInt(data.price);
 
-      console.log(data);
-
       const msg = await axios({
         method: "POST",
         url: serverUrl + "private/" + "goods",
