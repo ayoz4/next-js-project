@@ -20,6 +20,14 @@ const goodCreateSchema = Yup.object().shape({
 const Window = props => {
   const [open, setOpen] = React.useState(false);
 
+  const renderInitialValues = () => {
+    if (props.good) {
+      return props.good;
+    } else {
+      return { name: "", description: "", price: 0 };
+    }
+  };
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -28,23 +36,38 @@ const Window = props => {
     setOpen(false);
   };
 
+  const renderOnSubmit = good => {
+    if (props.good) {
+      setOpen(false);
+      props.update(good);
+    } else {
+      setOpen(false);
+      props.createGood(good);
+    }
+  };
   const onSubmit = good => {
     setOpen(false);
     props.createGood(good);
   };
   return (
     <div>
-      <Button onClick={handleClickOpen}>Create good</Button>
+      {props.type === "edit" ? (
+        <Button size="small" color="primary" onClick={handleClickOpen}>
+          Edit
+        </Button>
+      ) : (
+        <Button onClick={handleClickOpen}>Create good</Button>
+      )}
       <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
         <Formik
-          initialValues={{ name: "", description: "", price: 0 }}
+          initialValues={renderInitialValues()}
           validationSchema={goodCreateSchema}
           onSubmit={values => {
-            onSubmit(values);
+            renderOnSubmit(values);
           }}
         >
           {({ errors, touched, values, handleChange }) => (
@@ -74,7 +97,7 @@ const Window = props => {
                   name="description"
                   label="Good's description"
                   type="text"
-                  values={values.description}
+                  value={values.description}
                   helperText={errors.description}
                   onChange={handleChange}
                   fullWidth

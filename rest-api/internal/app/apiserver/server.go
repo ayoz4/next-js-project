@@ -71,7 +71,6 @@ func (s *server) configureRouter() {
 
 	s.router.HandleFunc("/goods/{id}", s.handleGetGood()).Methods("GET")
 	s.router.HandleFunc("/goods", s.handleGetGoods()).Methods("GET")
-	s.router.HandleFunc("/goods", s.handleUpdateGood()).Methods("PUT")
 	s.router.HandleFunc("/sessions", s.handleSessionsCreate()).Methods("POST")
 	s.router.HandleFunc("/delsessions", s.handleDeleteSession()).Methods("POST")
 
@@ -80,6 +79,7 @@ func (s *server) configureRouter() {
 	private.HandleFunc("/whoami", s.handleWhoami()).Methods("GET")
 	private.HandleFunc("/goods", s.handleGoodsCreate()).Methods("POST")
 	private.HandleFunc("/goods/{id}", s.handleDeleteGood()).Methods("DELETE", "OPTIONS")
+	private.HandleFunc("/goods", s.handleUpdateGood()).Methods("PUT", "OPTIONS")
 }
 
 func (s *server) setRequestID(next http.Handler) http.Handler {
@@ -298,6 +298,8 @@ func (s *server) handleUpdateGood() http.HandlerFunc {
 			s.error(w, r, http.StatusBadRequest, err)
 			return
 		}
+
+		s.respond(w, r, http.StatusCreated, g.ID)
 	}
 }
 

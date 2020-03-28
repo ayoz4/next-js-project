@@ -4,7 +4,11 @@ import { connect } from "react-redux";
 import Head from "next/head";
 import Good from "../components/Good";
 import { addToCart } from "../redux/actions/cartActions";
-import { getGoods, deleteGood } from "../redux/actions/goodsActions";
+import {
+  getGoods,
+  deleteGood,
+  updateGood
+} from "../redux/actions/goodsActions";
 
 class Home extends Component {
   componentDidMount() {
@@ -37,6 +41,7 @@ class Home extends Component {
               good={good}
               onAddToCart={this.onAddToCart}
               onDeleteGood={this.props.onDeleteGood}
+              onUpdateGood={this.props.onUpdateGood}
               user={users}
             />
           ))}
@@ -62,6 +67,9 @@ const mapDispatchToProps = dispatch => {
     },
     onDeleteGood: id => {
       dispatch(deleteGood(id));
+    },
+    onUpdateGood: good => {
+      dispatch(updateGood(good));
     }
   };
 };

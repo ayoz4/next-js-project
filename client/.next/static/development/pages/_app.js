@@ -15,9 +15,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/index.js");
 /* harmony import */ var _material_ui_icons_Delete__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/icons/Delete */ "./node_modules/@material-ui/icons/Delete.js");
 /* harmony import */ var _material_ui_icons_Delete__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_Delete__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _goodModal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./goodModal */ "./components/goodModal.js");
 var _jsxFileName = "/Users/roman/Documents/GitHub/next-js-project/client/components/Good.js";
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 // import image from "../images/movieHouse.png";
+
 
 
 
@@ -39,19 +41,20 @@ var useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_1__["ma
   var good = _ref.good,
       onAddToCart = _ref.onAddToCart,
       user = _ref.user,
-      onDeleteGood = _ref.onDeleteGood;
+      onDeleteGood = _ref.onDeleteGood,
+      onUpdateGood = _ref.onUpdateGood;
   var classes = useStyles();
   return __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["Card"], {
     className: classes.root,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 31
+      lineNumber: 33
     },
     __self: this
   }, __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["CardActionArea"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 32
+      lineNumber: 34
     },
     __self: this
   }, __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["CardMedia"], {
@@ -60,13 +63,13 @@ var useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_1__["ma
     title: "Contemplative Reptile",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 33
+      lineNumber: 35
     },
     __self: this
   }), __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["CardContent"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 38
+      lineNumber: 40
     },
     __self: this
   }, __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["Typography"], {
@@ -75,7 +78,7 @@ var useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_1__["ma
     component: "h2",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 39
+      lineNumber: 41
     },
     __self: this
   }, good.name), __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["Typography"], {
@@ -84,7 +87,7 @@ var useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_1__["ma
     component: "p",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 42
+      lineNumber: 44
     },
     __self: this
   }, good.description), __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["Typography"], {
@@ -92,30 +95,31 @@ var useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_1__["ma
     component: "h4",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 45
+      lineNumber: 47
     },
     __self: this
   }, good.price))), __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["CardActions"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 50
+      lineNumber: 52
     },
     __self: this
   }, user.username !== null ? __jsx("div", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 52
+      lineNumber: 54
     },
     __self: this
-  }, __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["Button"], {
-    size: "small",
-    color: "primary",
+  }, __jsx(_goodModal__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    type: "edit",
+    good: good,
+    update: onUpdateGood,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 53
+      lineNumber: 55
     },
     __self: this
-  }, "Edit"), __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+  }), __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["Button"], {
     variant: "contained",
     color: "secondary",
     size: "small",
@@ -123,7 +127,7 @@ var useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_1__["ma
     startIcon: __jsx(_material_ui_icons_Delete__WEBPACK_IMPORTED_MODULE_3___default.a, {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 61
+        lineNumber: 62
       },
       __self: this
     }),
@@ -132,7 +136,7 @@ var useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_1__["ma
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 56
+      lineNumber: 57
     },
     __self: this
   }, "Delete")) : __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["Button"], {
@@ -143,7 +147,7 @@ var useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_1__["ma
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 68
+      lineNumber: 69
     },
     __self: this
   }, "Add to cart")));
@@ -479,6 +483,18 @@ var Window = function Window(props) {
       open = _React$useState2[0],
       setOpen = _React$useState2[1];
 
+  var renderInitialValues = function renderInitialValues() {
+    if (props.good) {
+      return props.good;
+    } else {
+      return {
+        name: "",
+        description: "",
+        price: 0
+      };
+    }
+  };
+
   var handleClickOpen = function handleClickOpen() {
     setOpen(true);
   };
@@ -487,7 +503,17 @@ var Window = function Window(props) {
     setOpen(false);
   };
 
-  var _onSubmit = function onSubmit(good) {
+  var renderOnSubmit = function renderOnSubmit(good) {
+    if (props.good) {
+      setOpen(false);
+      props.update(good);
+    } else {
+      setOpen(false);
+      props.createGood(good);
+    }
+  };
+
+  var onSubmit = function onSubmit(good) {
     setOpen(false);
     props.createGood(good);
   };
@@ -495,14 +521,23 @@ var Window = function Window(props) {
   return __jsx("div", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 36
+      lineNumber: 53
     },
     __self: this
-  }, __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+  }, props.type === "edit" ? __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+    size: "small",
+    color: "primary",
     onClick: handleClickOpen,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 37
+      lineNumber: 55
+    },
+    __self: this
+  }, "Edit") : __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+    onClick: handleClickOpen,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 59
     },
     __self: this
   }, "Create good"), __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["Dialog"], {
@@ -511,22 +546,18 @@ var Window = function Window(props) {
     "aria-labelledby": "form-dialog-title",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 38
+      lineNumber: 61
     },
     __self: this
   }, __jsx(formik__WEBPACK_IMPORTED_MODULE_3__["Formik"], {
-    initialValues: {
-      name: "",
-      description: "",
-      price: 0
-    },
+    initialValues: renderInitialValues(),
     validationSchema: goodCreateSchema,
     onSubmit: function onSubmit(values) {
-      _onSubmit(values);
+      renderOnSubmit(values);
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 43
+      lineNumber: 66
     },
     __self: this
   }, function (_ref) {
@@ -537,26 +568,26 @@ var Window = function Window(props) {
     return __jsx(formik__WEBPACK_IMPORTED_MODULE_3__["Form"], {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 51
+        lineNumber: 74
       },
       __self: this
     }, __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["DialogTitle"], {
       id: "form-dialog-title",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 52
+        lineNumber: 75
       },
       __self: this
     }, "Create good"), __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["DialogContent"], {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 53
+        lineNumber: 76
       },
       __self: this
     }, __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["DialogContentText"], {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 54
+        lineNumber: 77
       },
       __self: this
     }, "Enter the fields with the correct values to create a new good."), __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["TextField"], {
@@ -572,7 +603,7 @@ var Window = function Window(props) {
       fullWidth: true,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 58
+        lineNumber: 81
       },
       __self: this
     }), __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["TextField"], {
@@ -581,13 +612,13 @@ var Window = function Window(props) {
       name: "description",
       label: "Good's description",
       type: "text",
-      values: values.description,
+      value: values.description,
       helperText: errors.description,
       onChange: handleChange,
       fullWidth: true,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 71
+        lineNumber: 94
       },
       __self: this
     }), __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["TextField"], {
@@ -601,13 +632,13 @@ var Window = function Window(props) {
       onChange: handleChange,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 83
+        lineNumber: 106
       },
       __self: this
     })), __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["DialogActions"], {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 94
+        lineNumber: 117
       },
       __self: this
     }, __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["Button"], {
@@ -615,7 +646,7 @@ var Window = function Window(props) {
       color: "primary",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 95
+        lineNumber: 118
       },
       __self: this
     }, "Cancel"), __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["Button"], {
@@ -623,7 +654,7 @@ var Window = function Window(props) {
       color: "primary",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 98
+        lineNumber: 121
       },
       __self: this
     }, "Submit")));
@@ -78284,20 +78315,20 @@ function (_Component) {
         className: "jsx-3295222989",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 24
+          lineNumber: 28
         },
         __self: this
       }, __jsx(next_head__WEBPACK_IMPORTED_MODULE_10___default.a, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 25
+          lineNumber: 29
         },
         __self: this
       }, __jsx("title", {
         className: "jsx-3295222989",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 26
+          lineNumber: 30
         },
         __self: this
       }, "Test"), __jsx("link", {
@@ -78306,14 +78337,14 @@ function (_Component) {
         className: "jsx-3295222989",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 27
+          lineNumber: 31
         },
         __self: this
       })), __jsx("div", {
         className: "jsx-3295222989" + " " + "row row-cols-1 row-cols-md-3 container mx-auto",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 33
+          lineNumber: 37
         },
         __self: this
       }, goods.map(function (good) {
@@ -78322,17 +78353,18 @@ function (_Component) {
           good: good,
           onAddToCart: _this2.onAddToCart,
           onDeleteGood: _this2.props.onDeleteGood,
+          onUpdateGood: _this2.props.onUpdateGood,
           user: users,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 35
+            lineNumber: 39
           },
           __self: this
         });
       })), __jsx(styled_jsx_style__WEBPACK_IMPORTED_MODULE_7___default.a, {
         id: "3295222989",
         __self: this
-      }, ".row-cols-md-3.jsx-3295222989{margin:3vh 1.5vw 1.5vh 1.5vw;}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9yb21hbi9Eb2N1bWVudHMvR2l0SHViL25leHQtanMtcHJvamVjdC9jbGllbnQvcGFnZXMvaW5kZXguanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBNENvQixBQUcwQyw2QkFDL0IiLCJmaWxlIjoiL1VzZXJzL3JvbWFuL0RvY3VtZW50cy9HaXRIdWIvbmV4dC1qcy1wcm9qZWN0L2NsaWVudC9wYWdlcy9pbmRleC5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBSZWFjdCwgeyBDb21wb25lbnQgfSBmcm9tIFwicmVhY3RcIjtcbmltcG9ydCB7IGNvbm5lY3QgfSBmcm9tIFwicmVhY3QtcmVkdXhcIjtcblxuaW1wb3J0IEhlYWQgZnJvbSBcIm5leHQvaGVhZFwiO1xuaW1wb3J0IEdvb2QgZnJvbSBcIi4uL2NvbXBvbmVudHMvR29vZFwiO1xuaW1wb3J0IHsgYWRkVG9DYXJ0IH0gZnJvbSBcIi4uL3JlZHV4L2FjdGlvbnMvY2FydEFjdGlvbnNcIjtcbmltcG9ydCB7IGdldEdvb2RzLCBkZWxldGVHb29kIH0gZnJvbSBcIi4uL3JlZHV4L2FjdGlvbnMvZ29vZHNBY3Rpb25zXCI7XG5cbmNsYXNzIEhvbWUgZXh0ZW5kcyBDb21wb25lbnQge1xuICBjb21wb25lbnREaWRNb3VudCgpIHtcbiAgICB0aGlzLnByb3BzLm9uR2V0R29vZHMoKTtcbiAgfVxuXG4gIG9uQWRkVG9DYXJ0ID0gKGUsIGdvb2QpID0+IHtcbiAgICBlLnByZXZlbnREZWZhdWx0KCk7XG4gICAgdGhpcy5wcm9wcy5vbkFkZFRvQ2FydChnb29kKTtcbiAgfTtcblxuICByZW5kZXIoKSB7XG4gICAgY29uc3QgZ29vZHMgPSB0aGlzLnByb3BzLmdvb2RzLmdvb2RzO1xuICAgIGNvbnN0IHVzZXJzID0gdGhpcy5wcm9wcy51c2VycztcblxuICAgIHJldHVybiAoXG4gICAgICA8ZGl2PlxuICAgICAgICA8SGVhZD5cbiAgICAgICAgICA8dGl0bGU+VGVzdDwvdGl0bGU+XG4gICAgICAgICAgPGxpbmtcbiAgICAgICAgICAgIHJlbD1cInN0eWxlc2hlZXRcIlxuICAgICAgICAgICAgaHJlZj1cImh0dHBzOi8vc3RhY2twYXRoLmJvb3RzdHJhcGNkbi5jb20vYm9vdHN0cmFwLzQuNC4xL2Nzcy9ib290c3RyYXAubWluLmNzc1wiXG4gICAgICAgICAgLz5cbiAgICAgICAgPC9IZWFkPlxuXG4gICAgICAgIDxkaXYgY2xhc3NOYW1lPVwicm93IHJvdy1jb2xzLTEgcm93LWNvbHMtbWQtMyBjb250YWluZXIgbXgtYXV0b1wiPlxuICAgICAgICAgIHtnb29kcy5tYXAoZ29vZCA9PiAoXG4gICAgICAgICAgICA8R29vZFxuICAgICAgICAgICAgICBrZXk9e2dvb2QuaWR9XG4gICAgICAgICAgICAgIGdvb2Q9e2dvb2R9XG4gICAgICAgICAgICAgIG9uQWRkVG9DYXJ0PXt0aGlzLm9uQWRkVG9DYXJ0fVxuICAgICAgICAgICAgICBvbkRlbGV0ZUdvb2Q9e3RoaXMucHJvcHMub25EZWxldGVHb29kfVxuICAgICAgICAgICAgICB1c2VyPXt1c2Vyc31cbiAgICAgICAgICAgIC8+XG4gICAgICAgICAgKSl9XG4gICAgICAgIDwvZGl2PlxuXG4gICAgICAgIDxzdHlsZSBqc3g+e2BcbiAgICAgICAgICAucm93LWNvbHMtbWQtMyB7XG4gICAgICAgICAgICBtYXJnaW46IDN2aCAxLjV2dyAxLjV2aCAxLjV2dztcbiAgICAgICAgICB9XG4gICAgICAgIGB9PC9zdHlsZT5cbiAgICAgIDwvZGl2PlxuICAgICk7XG4gIH1cbn1cblxuY29uc3QgbWFwRGlzcGF0Y2hUb1Byb3BzID0gZGlzcGF0Y2ggPT4ge1xuICByZXR1cm4ge1xuICAgIG9uR2V0R29vZHM6ICgpID0+IHtcbiAgICAgIGRpc3BhdGNoKGdldEdvb2RzKCkpO1xuICAgIH0sXG4gICAgb25BZGRUb0NhcnQ6IGdvb2QgPT4ge1xuICAgICAgZGlzcGF0Y2goYWRkVG9DYXJ0KGdvb2QpKTtcbiAgICB9LFxuICAgIG9uRGVsZXRlR29vZDogaWQgPT4ge1xuICAgICAgZGlzcGF0Y2goZGVsZXRlR29vZChpZCkpO1xuICAgIH1cbiAgfTtcbn07XG5cbmNvbnN0IG1hcFN0YXRlVG9Qcm9wcyA9IHN0YXRlID0+ICh7XG4gIGdvb2RzOiBzdGF0ZS5nb29kcyxcbiAgdXNlcnM6IHN0YXRlLnVzZXJzXG59KTtcblxuZXhwb3J0IGRlZmF1bHQgY29ubmVjdChtYXBTdGF0ZVRvUHJvcHMsIG1hcERpc3BhdGNoVG9Qcm9wcykoSG9tZSk7XG4iXX0= */\n/*@ sourceURL=/Users/roman/Documents/GitHub/next-js-project/client/pages/index.js */"));
+      }, ".row-cols-md-3.jsx-3295222989{margin:3vh 1.5vw 1.5vh 1.5vw;}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9yb21hbi9Eb2N1bWVudHMvR2l0SHViL25leHQtanMtcHJvamVjdC9jbGllbnQvcGFnZXMvaW5kZXguanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBaURvQixBQUcwQyw2QkFDL0IiLCJmaWxlIjoiL1VzZXJzL3JvbWFuL0RvY3VtZW50cy9HaXRIdWIvbmV4dC1qcy1wcm9qZWN0L2NsaWVudC9wYWdlcy9pbmRleC5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBSZWFjdCwgeyBDb21wb25lbnQgfSBmcm9tIFwicmVhY3RcIjtcbmltcG9ydCB7IGNvbm5lY3QgfSBmcm9tIFwicmVhY3QtcmVkdXhcIjtcblxuaW1wb3J0IEhlYWQgZnJvbSBcIm5leHQvaGVhZFwiO1xuaW1wb3J0IEdvb2QgZnJvbSBcIi4uL2NvbXBvbmVudHMvR29vZFwiO1xuaW1wb3J0IHsgYWRkVG9DYXJ0IH0gZnJvbSBcIi4uL3JlZHV4L2FjdGlvbnMvY2FydEFjdGlvbnNcIjtcbmltcG9ydCB7XG4gIGdldEdvb2RzLFxuICBkZWxldGVHb29kLFxuICB1cGRhdGVHb29kXG59IGZyb20gXCIuLi9yZWR1eC9hY3Rpb25zL2dvb2RzQWN0aW9uc1wiO1xuXG5jbGFzcyBIb21lIGV4dGVuZHMgQ29tcG9uZW50IHtcbiAgY29tcG9uZW50RGlkTW91bnQoKSB7XG4gICAgdGhpcy5wcm9wcy5vbkdldEdvb2RzKCk7XG4gIH1cblxuICBvbkFkZFRvQ2FydCA9IChlLCBnb29kKSA9PiB7XG4gICAgZS5wcmV2ZW50RGVmYXVsdCgpO1xuICAgIHRoaXMucHJvcHMub25BZGRUb0NhcnQoZ29vZCk7XG4gIH07XG5cbiAgcmVuZGVyKCkge1xuICAgIGNvbnN0IGdvb2RzID0gdGhpcy5wcm9wcy5nb29kcy5nb29kcztcbiAgICBjb25zdCB1c2VycyA9IHRoaXMucHJvcHMudXNlcnM7XG5cbiAgICByZXR1cm4gKFxuICAgICAgPGRpdj5cbiAgICAgICAgPEhlYWQ+XG4gICAgICAgICAgPHRpdGxlPlRlc3Q8L3RpdGxlPlxuICAgICAgICAgIDxsaW5rXG4gICAgICAgICAgICByZWw9XCJzdHlsZXNoZWV0XCJcbiAgICAgICAgICAgIGhyZWY9XCJodHRwczovL3N0YWNrcGF0aC5ib290c3RyYXBjZG4uY29tL2Jvb3RzdHJhcC80LjQuMS9jc3MvYm9vdHN0cmFwLm1pbi5jc3NcIlxuICAgICAgICAgIC8+XG4gICAgICAgIDwvSGVhZD5cblxuICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cInJvdyByb3ctY29scy0xIHJvdy1jb2xzLW1kLTMgY29udGFpbmVyIG14LWF1dG9cIj5cbiAgICAgICAgICB7Z29vZHMubWFwKGdvb2QgPT4gKFxuICAgICAgICAgICAgPEdvb2RcbiAgICAgICAgICAgICAga2V5PXtnb29kLmlkfVxuICAgICAgICAgICAgICBnb29kPXtnb29kfVxuICAgICAgICAgICAgICBvbkFkZFRvQ2FydD17dGhpcy5vbkFkZFRvQ2FydH1cbiAgICAgICAgICAgICAgb25EZWxldGVHb29kPXt0aGlzLnByb3BzLm9uRGVsZXRlR29vZH1cbiAgICAgICAgICAgICAgb25VcGRhdGVHb29kPXt0aGlzLnByb3BzLm9uVXBkYXRlR29vZH1cbiAgICAgICAgICAgICAgdXNlcj17dXNlcnN9XG4gICAgICAgICAgICAvPlxuICAgICAgICAgICkpfVxuICAgICAgICA8L2Rpdj5cblxuICAgICAgICA8c3R5bGUganN4PntgXG4gICAgICAgICAgLnJvdy1jb2xzLW1kLTMge1xuICAgICAgICAgICAgbWFyZ2luOiAzdmggMS41dncgMS41dmggMS41dnc7XG4gICAgICAgICAgfVxuICAgICAgICBgfTwvc3R5bGU+XG4gICAgICA8L2Rpdj5cbiAgICApO1xuICB9XG59XG5cbmNvbnN0IG1hcERpc3BhdGNoVG9Qcm9wcyA9IGRpc3BhdGNoID0+IHtcbiAgcmV0dXJuIHtcbiAgICBvbkdldEdvb2RzOiAoKSA9PiB7XG4gICAgICBkaXNwYXRjaChnZXRHb29kcygpKTtcbiAgICB9LFxuICAgIG9uQWRkVG9DYXJ0OiBnb29kID0+IHtcbiAgICAgIGRpc3BhdGNoKGFkZFRvQ2FydChnb29kKSk7XG4gICAgfSxcbiAgICBvbkRlbGV0ZUdvb2Q6IGlkID0+IHtcbiAgICAgIGRpc3BhdGNoKGRlbGV0ZUdvb2QoaWQpKTtcbiAgICB9LFxuICAgIG9uVXBkYXRlR29vZDogZ29vZCA9PiB7XG4gICAgICBkaXNwYXRjaCh1cGRhdGVHb29kKGdvb2QpKTtcbiAgICB9XG4gIH07XG59O1xuXG5jb25zdCBtYXBTdGF0ZVRvUHJvcHMgPSBzdGF0ZSA9PiAoe1xuICBnb29kczogc3RhdGUuZ29vZHMsXG4gIHVzZXJzOiBzdGF0ZS51c2Vyc1xufSk7XG5cbmV4cG9ydCBkZWZhdWx0IGNvbm5lY3QobWFwU3RhdGVUb1Byb3BzLCBtYXBEaXNwYXRjaFRvUHJvcHMpKEhvbWUpO1xuIl19 */\n/*@ sourceURL=/Users/roman/Documents/GitHub/next-js-project/client/pages/index.js */"));
     }
   }]);
 
@@ -78349,6 +78381,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     onDeleteGood: function onDeleteGood(id) {
       dispatch(Object(_redux_actions_goodsActions__WEBPACK_IMPORTED_MODULE_13__["deleteGood"])(id));
+    },
+    onUpdateGood: function onUpdateGood(good) {
+      dispatch(Object(_redux_actions_goodsActions__WEBPACK_IMPORTED_MODULE_13__["updateGood"])(good));
     }
   };
 };
@@ -78403,7 +78438,7 @@ var incrementCount = function incrementCount(data) {
 /*!***************************************!*\
   !*** ./redux/actions/goodsActions.js ***!
   \***************************************/
-/*! exports provided: getGoods, createGood, deleteGood */
+/*! exports provided: getGoods, createGood, deleteGood, updateGood */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -78411,6 +78446,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getGoods", function() { return getGoods; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createGood", function() { return createGood; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteGood", function() { return deleteGood; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateGood", function() { return updateGood; });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -78525,6 +78561,39 @@ var deleteGood = function deleteGood(id) {
     }, null, null, [[0, 6]], Promise);
   };
 };
+var updateGood = function updateGood(data) {
+  return function _callee4(dispatch) {
+    var msg;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            _context4.prev = 0;
+            _context4.next = 3;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_1___default.a.put(_constants__WEBPACK_IMPORTED_MODULE_2__["serverUrl"] + "private/" + "goods", JSON.stringify(data), {
+              withCredentials: true
+            }));
+
+          case 3:
+            msg = _context4.sent;
+            return _context4.abrupt("return", dispatch(getGoods()));
+
+          case 7:
+            _context4.prev = 7;
+            _context4.t0 = _context4["catch"](0);
+            dispatch({
+              type: _constants__WEBPACK_IMPORTED_MODULE_2__["UPDATE_GOOD_FAILURE"],
+              data: _context4.t0
+            });
+
+          case 10:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, null, null, [[0, 7]], Promise);
+  };
+};
 
 /***/ }),
 
@@ -78620,7 +78689,7 @@ var logout = function logout() {
 /*!****************************!*\
   !*** ./redux/constants.js ***!
   \****************************/
-/*! exports provided: serverUrl, ADD_TO_CART, DELETE_FROM_CART, QUANTITY_CHANGED, CLEAR_CART, FETCH_GOODS_SUCCESS, FETCH_GOODS_FAILURE, FETCH_GOODS_REQUEST, CREATE_GOOD_SUCCESS, CREATE_GOOD_FAILURE, DELETE_GOOD_SUCCESS, DELETE_GOOD_FAILURE, LOGIN, LOGOUT */
+/*! exports provided: serverUrl, ADD_TO_CART, DELETE_FROM_CART, QUANTITY_CHANGED, CLEAR_CART, FETCH_GOODS_SUCCESS, FETCH_GOODS_FAILURE, FETCH_GOODS_REQUEST, CREATE_GOOD_SUCCESS, CREATE_GOOD_FAILURE, DELETE_GOOD_SUCCESS, DELETE_GOOD_FAILURE, UPDATE_GOOD_FAILURE, LOGIN, LOGOUT */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -78637,6 +78706,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CREATE_GOOD_FAILURE", function() { return CREATE_GOOD_FAILURE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_GOOD_SUCCESS", function() { return DELETE_GOOD_SUCCESS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_GOOD_FAILURE", function() { return DELETE_GOOD_FAILURE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_GOOD_FAILURE", function() { return UPDATE_GOOD_FAILURE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LOGIN", function() { return LOGIN; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LOGOUT", function() { return LOGOUT; });
 var serverUrl = "http://localhost:8081/";
@@ -78651,6 +78721,7 @@ var CREATE_GOOD_SUCCESS = "CREATE_GOOD_SUCCESS";
 var CREATE_GOOD_FAILURE = "CREATE_GOOD_SUCCESS";
 var DELETE_GOOD_SUCCESS = "DELETE_GOOD_SUCCESS";
 var DELETE_GOOD_FAILURE = "DELETE_GOOD_FAILURE";
+var UPDATE_GOOD_FAILURE = "UPDATE_GOOD_FAILURE";
 var LOGIN = "LOGIN";
 var LOGOUT = "LOGOUT";
 

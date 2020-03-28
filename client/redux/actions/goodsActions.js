@@ -8,7 +8,8 @@ import {
   CREATE_GOOD_FAILURE,
   serverUrl,
   DELETE_GOOD_SUCCESS,
-  DELETE_GOOD_FAILURE
+  DELETE_GOOD_FAILURE,
+  UPDATE_GOOD_FAILURE
 } from "../constants";
 
 const getGoodsRequest = () => {};
@@ -60,6 +61,24 @@ export const deleteGood = id => {
       return dispatch(getGoods());
     } catch (err) {
       dispatch({ type: DELETE_GOOD_FAILURE, data: err });
+    }
+  };
+};
+
+export const updateGood = data => {
+  return async dispatch => {
+    try {
+      const msg = await axios.put(
+        serverUrl + "private/" + "goods",
+        JSON.stringify(data),
+        {
+          withCredentials: true
+        }
+      );
+
+      return dispatch(getGoods());
+    } catch (err) {
+      dispatch({ type: UPDATE_GOOD_FAILURE, data: err });
     }
   };
 };

@@ -12,6 +12,8 @@ import {
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 
+import Window from "./goodModal";
+
 const useStyles = makeStyles(theme => ({
   root: {
     maxWidth: 345
@@ -24,7 +26,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default ({ good, onAddToCart, user, onDeleteGood }) => {
+export default ({ good, onAddToCart, user, onDeleteGood, onUpdateGood }) => {
   const classes = useStyles();
 
   return (
@@ -50,9 +52,8 @@ export default ({ good, onAddToCart, user, onDeleteGood }) => {
       <CardActions>
         {user.username !== null ? (
           <div>
-            <Button size="small" color="primary">
-              Edit
-            </Button>
+            <Window type="edit" good={good} update={onUpdateGood} />
+
             <Button
               variant="contained"
               color="secondary"
