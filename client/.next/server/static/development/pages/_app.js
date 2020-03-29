@@ -358,6 +358,9 @@ function a11yProps(index) {
 }
 
 const Nav = props => {
+  react__WEBPACK_IMPORTED_MODULE_0___default.a.useEffect(() => {
+    props.onWhoami();
+  });
   const classes = useStyles();
   const [value, setValue] = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(0);
 
@@ -382,21 +385,21 @@ const Nav = props => {
       className: classes.sectionDesktop,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 100
+        lineNumber: 104
       },
       __self: undefined
     }, props.users.username, __jsx(_goodModal__WEBPACK_IMPORTED_MODULE_6__["default"], {
       createGood: props.onCreateGood,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 102
+        lineNumber: 106
       },
       __self: undefined
     }), __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["Button"], {
       onClick: e => onLogout(e),
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 103
+        lineNumber: 107
       },
       __self: undefined
     }, "Logout"));
@@ -406,7 +409,7 @@ const Nav = props => {
       onClick: e => onLogin(e),
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 108
+        lineNumber: 112
       },
       __self: undefined
     }, "Login");
@@ -416,20 +419,20 @@ const Nav = props => {
     className: classes.root,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 115
+      lineNumber: 119
     },
     __self: undefined
   }, __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["AppBar"], {
     position: "static",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 116
+      lineNumber: 120
     },
     __self: undefined
   }, __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["Toolbar"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 117
+      lineNumber: 121
     },
     __self: undefined
   }, __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["Typography"], {
@@ -438,14 +441,14 @@ const Nav = props => {
     noWrap: true,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 118
+      lineNumber: 122
     },
     __self: undefined
   }, "Shop"), __jsx("div", {
     className: classes.tabs,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 121
+      lineNumber: 125
     },
     __self: undefined
   }, __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["Tabs"], {
@@ -455,7 +458,7 @@ const Nav = props => {
     centered: true,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 122
+      lineNumber: 126
     },
     __self: undefined
   }, __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["Tab"], _extends({
@@ -463,7 +466,7 @@ const Nav = props => {
   }, a11yProps(0), {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 128
+      lineNumber: 132
     },
     __self: undefined
   })), __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["Tab"], _extends({
@@ -471,14 +474,14 @@ const Nav = props => {
   }, a11yProps(1), {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 129
+      lineNumber: 133
     },
     __self: undefined
   })))), __jsx("div", {
     className: classes.grow,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 132
+      lineNumber: 136
     },
     __self: undefined
   }), authButtons)), __jsx(TabPanel, {
@@ -486,13 +489,13 @@ const Nav = props => {
     index: 0,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 137
+      lineNumber: 141
     },
     __self: undefined
   }, __jsx(_pages__WEBPACK_IMPORTED_MODULE_8__["default"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 138
+      lineNumber: 142
     },
     __self: undefined
   })), __jsx(TabPanel, {
@@ -500,13 +503,13 @@ const Nav = props => {
     index: 1,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 140
+      lineNumber: 144
     },
     __self: undefined
   }, __jsx(_pages_cart__WEBPACK_IMPORTED_MODULE_7__["default"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 141
+      lineNumber: 145
     },
     __self: undefined
   })));
@@ -521,6 +524,9 @@ const mapDispatchToProps = dispatch => ({
   },
   onLogout: () => {
     dispatch(Object(_redux_actions_usersActions__WEBPACK_IMPORTED_MODULE_4__["logout"])());
+  },
+  onWhoami: () => {
+    dispatch(Object(_redux_actions_usersActions__WEBPACK_IMPORTED_MODULE_4__["whoami"])());
   }
 });
 
@@ -3247,13 +3253,14 @@ const updateGood = data => {
 /*!***************************************!*\
   !*** ./redux/actions/usersActions.js ***!
   \***************************************/
-/*! exports provided: login, logout */
+/*! exports provided: login, logout, whoami */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "login", function() { return login; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logout", function() { return logout; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "whoami", function() { return whoami; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "axios");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../constants */ "./redux/constants.js");
@@ -3284,6 +3291,23 @@ const logout = () => {
       return dispatch({
         type: _constants__WEBPACK_IMPORTED_MODULE_1__["LOGOUT"]
       });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+const whoami = () => {
+  return async dispatch => {
+    try {
+      if (!document.cookie) {
+        return;
+      }
+
+      const msg = await fetch(_constants__WEBPACK_IMPORTED_MODULE_1__["serverUrl"] + "private/" + "whoami");
+
+      if (msg.status === 401) {
+        dispatch(logout());
+      }
     } catch (err) {
       console.log(err);
     }

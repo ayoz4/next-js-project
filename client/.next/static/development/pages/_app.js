@@ -263,6 +263,9 @@ function a11yProps(index) {
 }
 
 var Nav = function Nav(props) {
+  react__WEBPACK_IMPORTED_MODULE_4___default.a.useEffect(function () {
+    props.onWhoami();
+  });
   var classes = useStyles();
 
   var _React$useState = react__WEBPACK_IMPORTED_MODULE_4___default.a.useState(0),
@@ -291,14 +294,14 @@ var Nav = function Nav(props) {
       className: classes.sectionDesktop,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 100
+        lineNumber: 104
       },
       __self: this
     }, props.users.username, __jsx(_goodModal__WEBPACK_IMPORTED_MODULE_10__["default"], {
       createGood: props.onCreateGood,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 102
+        lineNumber: 106
       },
       __self: this
     }), __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__["Button"], {
@@ -307,7 +310,7 @@ var Nav = function Nav(props) {
       },
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 103
+        lineNumber: 107
       },
       __self: this
     }, "Logout"));
@@ -319,7 +322,7 @@ var Nav = function Nav(props) {
       },
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 108
+        lineNumber: 112
       },
       __self: this
     }, "Login");
@@ -329,20 +332,20 @@ var Nav = function Nav(props) {
     className: classes.root,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 115
+      lineNumber: 119
     },
     __self: this
   }, __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__["AppBar"], {
     position: "static",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 116
+      lineNumber: 120
     },
     __self: this
   }, __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__["Toolbar"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 117
+      lineNumber: 121
     },
     __self: this
   }, __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__["Typography"], {
@@ -351,14 +354,14 @@ var Nav = function Nav(props) {
     noWrap: true,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 118
+      lineNumber: 122
     },
     __self: this
   }, "Shop"), __jsx("div", {
     className: classes.tabs,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 121
+      lineNumber: 125
     },
     __self: this
   }, __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__["Tabs"], {
@@ -368,7 +371,7 @@ var Nav = function Nav(props) {
     centered: true,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 122
+      lineNumber: 126
     },
     __self: this
   }, __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__["Tab"], Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
@@ -376,7 +379,7 @@ var Nav = function Nav(props) {
   }, a11yProps(0), {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 128
+      lineNumber: 132
     },
     __self: this
   })), __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__["Tab"], Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
@@ -384,14 +387,14 @@ var Nav = function Nav(props) {
   }, a11yProps(1), {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 129
+      lineNumber: 133
     },
     __self: this
   })))), __jsx("div", {
     className: classes.grow,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 132
+      lineNumber: 136
     },
     __self: this
   }), authButtons)), __jsx(TabPanel, {
@@ -399,13 +402,13 @@ var Nav = function Nav(props) {
     index: 0,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 137
+      lineNumber: 141
     },
     __self: this
   }, __jsx(_pages__WEBPACK_IMPORTED_MODULE_12__["default"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 138
+      lineNumber: 142
     },
     __self: this
   })), __jsx(TabPanel, {
@@ -413,13 +416,13 @@ var Nav = function Nav(props) {
     index: 1,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 140
+      lineNumber: 144
     },
     __self: this
   }, __jsx(_pages_cart__WEBPACK_IMPORTED_MODULE_11__["default"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 141
+      lineNumber: 145
     },
     __self: this
   })));
@@ -435,6 +438,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     onLogout: function onLogout() {
       dispatch(Object(_redux_actions_usersActions__WEBPACK_IMPORTED_MODULE_8__["logout"])());
+    },
+    onWhoami: function onWhoami() {
+      dispatch(Object(_redux_actions_usersActions__WEBPACK_IMPORTED_MODULE_8__["whoami"])());
     }
   };
 };
@@ -78601,13 +78607,14 @@ var updateGood = function updateGood(data) {
 /*!***************************************!*\
   !*** ./redux/actions/usersActions.js ***!
   \***************************************/
-/*! exports provided: login, logout */
+/*! exports provided: login, logout, whoami */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "login", function() { return login; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logout", function() { return logout; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "whoami", function() { return whoami; });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -78680,6 +78687,49 @@ var logout = function logout() {
         }
       }
     }, null, null, [[0, 7]], Promise);
+  };
+};
+var whoami = function whoami() {
+  return function _callee3(dispatch) {
+    var msg;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.prev = 0;
+
+            if (document.cookie) {
+              _context3.next = 3;
+              break;
+            }
+
+            return _context3.abrupt("return");
+
+          case 3:
+            _context3.next = 5;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch(_constants__WEBPACK_IMPORTED_MODULE_2__["serverUrl"] + "private/" + "whoami"));
+
+          case 5:
+            msg = _context3.sent;
+
+            if (msg.status === 401) {
+              dispatch(logout());
+            }
+
+            _context3.next = 12;
+            break;
+
+          case 9:
+            _context3.prev = 9;
+            _context3.t0 = _context3["catch"](0);
+            console.log(_context3.t0);
+
+          case 12:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, null, null, [[0, 9]], Promise);
   };
 };
 

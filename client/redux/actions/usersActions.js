@@ -31,3 +31,21 @@ export const logout = () => {
     }
   };
 };
+
+export const whoami = () => {
+  return async dispatch => {
+    try {
+      if (!document.cookie) {
+        return;
+      }
+
+      const msg = await fetch(serverUrl + "private/" + "whoami");
+
+      if (msg.status === 401) {
+        dispatch(logout());
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};

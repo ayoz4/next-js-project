@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import {
   AppBar,
@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { login, logout } from "../redux/actions/usersActions";
+import { login, logout, whoami } from "../redux/actions/usersActions";
 import { createGood } from "../redux/actions/goodsActions";
 import Window from "./goodModal";
 import Cart from "../pages/cart";
@@ -77,6 +77,10 @@ function a11yProps(index) {
 }
 
 const Nav = props => {
+  React.useEffect(() => {
+    props.onWhoami();
+  });
+
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -153,6 +157,9 @@ const mapDispatchToProps = dispatch => ({
   },
   onLogout: () => {
     dispatch(logout());
+  },
+  onWhoami: () => {
+    dispatch(whoami());
   }
 });
 
