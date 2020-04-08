@@ -1,4 +1,4 @@
-import { applyMiddleware, createStore } from "redux";
+import { applyMiddleware, createStore, StoreCreator } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import { persistReducer, persistStore } from "redux-persist";
@@ -23,7 +23,7 @@ export const makeStore = (initialState, { isServer, req, debug, storeKey }) => {
       key: "nextjs",
       whitelist: ["cart", "users"],
       // blacklist: ["goods"],
-      storage
+      storage,
     };
 
     const persistedReducer = persistReducer(persistConfig, rootReducer);

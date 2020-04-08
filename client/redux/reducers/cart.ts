@@ -1,9 +1,11 @@
 import { ADD_TO_CART, DELETE_FROM_CART, QUANTITY_CHANGED } from "../constants";
+import { CartAction } from "../actions/cartActions";
+import { Good } from "../types";
 
-const cart = (state = [], action) => {
+const cart = (state = [], action: CartAction): Good[] => {
   switch (action.type) {
     case ADD_TO_CART:
-      const good = state.findIndex(good => good.name === action.data.name);
+      const good = state.findIndex((good) => good.name === action.data.name);
 
       if (state[good]) {
         state[good].quantity += 1;
@@ -14,11 +16,11 @@ const cart = (state = [], action) => {
       action.data.quantity = 1;
       return [...state, action.data];
     case DELETE_FROM_CART:
-      return [...state].filter(good => good.id !== action.id);
+      return [...state].filter((good) => good.id !== action.id);
 
     case QUANTITY_CHANGED:
       console.log(action.data);
-      const index = state.findIndex(good => good.id === action.data.id);
+      const index = state.findIndex((good) => good.id === action.data.id);
 
       state[index].quantity = action.data.e;
 

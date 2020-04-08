@@ -7,7 +7,7 @@ import {
   Button,
   Tabs,
   Tab,
-  Box
+  Box,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -17,19 +17,19 @@ import Window from "./goodModal";
 import Cart from "../pages/cart";
 import Home from "../pages";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: theme.palette.background.paper,
   },
   menuButton: {
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing(2),
   },
   title: {
     display: "none",
     [theme.breakpoints.up("sm")]: {
-      display: "block"
-    }
+      display: "block",
+    },
   },
   tabs: {
     position: "relative",
@@ -38,18 +38,18 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     [theme.breakpoints.up("sm")]: {
       marginLeft: theme.spacing(3),
-      width: "auto"
-    }
+      width: "auto",
+    },
   },
   grow: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   sectionDesktop: {
     display: "none",
     [theme.breakpoints.up("md")]: {
-      display: "block ruby"
-    }
-  }
+      display: "block ruby",
+    },
+  },
 }));
 
 function TabPanel(props) {
@@ -72,11 +72,11 @@ function TabPanel(props) {
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`
+    "aria-controls": `simple-tabpanel-${index}`,
   };
 }
 
-const Nav = props => {
+const Nav = (props) => {
   React.useEffect(() => {
     props.onWhoami();
   });
@@ -88,12 +88,12 @@ const Nav = props => {
     setValue(newValue);
   };
 
-  const onLogin = e => {
+  const onLogin = (e) => {
     e.preventDefault();
     props.onLogining();
   };
 
-  const onLogout = e => {
+  const onLogout = (e) => {
     e.preventDefault();
     props.onLogout();
   };
@@ -104,12 +104,12 @@ const Nav = props => {
       <div className={classes.sectionDesktop}>
         {props.users.username}
         <Window createGood={props.onCreateGood} />
-        <Button onClick={e => onLogout(e)}>Logout</Button>
+        <Button onClick={(e) => onLogout(e)}>Logout</Button>
       </div>
     );
   } else {
     authButtons = (
-      <Button color="inherit" onClick={e => onLogin(e)}>
+      <Button color="inherit" onClick={(e) => onLogin(e)}>
         Login
       </Button>
     );
@@ -148,11 +148,11 @@ const Nav = props => {
   );
 };
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   onLogining: () => {
     dispatch(login());
   },
-  onCreateGood: data => {
+  onCreateGood: (data) => {
     dispatch(createGood(data));
   },
   onLogout: () => {
@@ -160,11 +160,11 @@ const mapDispatchToProps = dispatch => ({
   },
   onWhoami: () => {
     dispatch(whoami());
-  }
+  },
 });
 
-const mapStateToProps = state => ({
-  users: state.users
+const mapStateToProps = (state) => ({
+  users: state.users,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Nav);

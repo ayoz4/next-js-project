@@ -7,7 +7,7 @@ import { addToCart } from "../redux/actions/cartActions";
 import {
   getGoods,
   deleteGood,
-  updateGood
+  updateGood,
 } from "../redux/actions/goodsActions";
 
 class Home extends Component {
@@ -35,7 +35,7 @@ class Home extends Component {
         </Head>
 
         <div className="row row-cols-1 row-cols-md-3 container mx-auto">
-          {goods.map(good => (
+          {goods.map((good) => (
             <Good
               key={good.id}
               good={good}
@@ -57,26 +57,26 @@ class Home extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     onGetGoods: () => {
       dispatch(getGoods());
     },
-    onAddToCart: good => {
+    onAddToCart: (good) => {
       dispatch(addToCart(good));
     },
-    onDeleteGood: id => {
+    onDeleteGood: (id) => {
       dispatch(deleteGood(id));
     },
-    onUpdateGood: good => {
+    onUpdateGood: (good) => {
       dispatch(updateGood(good));
-    }
+    },
   };
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   goods: state.goods,
-  users: state.users
+  users: state.users,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
